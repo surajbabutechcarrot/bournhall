@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #212020;
+  --Color-Main-Primary: #7d1551;
+}
+
+/* Palette mirrors the Figma variable set: Color/Purple/*, Color/Gray/*, Color/Text/Primary */
+@theme inline {
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-brand-50: #fffcfd;
+  --color-brand-100: #fff7fa;
+  --color-brand-200: #ffdaea;
+  --color-brand-300: #fdcce1;
+  --color-brand-400: #b1487e;
+  --color-brand-500: var(--Color-Main-Primary, #7d1551);
+  --color-brand-600: #6d0044;
+  --color-brand-700: #5c0f3c;
+  --color-brand-800: #4a0c31;
+  --color-brand-900: #3a0926;
+
+  --color-ink-50: #fffcfd;
+  --color-ink-100: #f9f9f9;
+  --color-ink-200: #dad8da;
+  --color-ink-300: #d0cdcf;
+  --color-ink-500: #666366;
+  --color-ink-700: #454345;
+  --color-ink-900: #212020;
+  --color-ink-950: #000000;
+
+  --color-lilac-50: #f2edf8;
+  --color-lilac-100: #ede7f7;
+  --color-lilac-200: #e4dbf2;
+
+  --color-petal-50: #fff7fa;
+  --color-petal-100: #fae5ec;
+  --color-petal-200: #ffdaea;
+  --color-petal-300: #fdcce1;
+
+  --color-mist-50: #f9f9f9;
+  --color-mist-100: #f2f2f2;
+
+  --shadow-soft: 0 1px 12px rgb(107 26 46 / 0.08);
+  --shadow-lift: 0 12px 32px -16px rgb(36 26 40 / 0.16);
+  --shadow-card: 0 8px 24px -14px rgb(36 26 40 / 0.14);
+}
+
+html {
+  /* Lenis owns smooth scrolling — native CSS smooth fights the RAF loop. */
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01" on, "cv11" on;
+}
+
+::selection {
+  background: var(--color-brand-200);
+  color: var(--color-ink-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 100;
+  border-radius: 999px;
+  background: var(--color-brand-600);
+  color: white;
+  padding: 0.5rem 1rem;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::marker {
+  content: "";
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Section gradients sampled pixel-for-pixel from the Figma home page render */
+@utility surface-bloom {
+  background-image: linear-gradient(180deg, #ede7f7 0%, #fae5ec 100%);
+}
+
+@utility surface-faq {
+  background-image: linear-gradient(180deg, #f2edf8 0%, #faecf1 100%);
+}
+
+@utility surface-cta {
+  background-image: linear-gradient(180deg, #ffffff 8%, #7d1551 88%);
+}
