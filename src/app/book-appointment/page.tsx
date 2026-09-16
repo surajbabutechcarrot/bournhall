@@ -14,12 +14,14 @@ export const metadata = buildMetadata({
 export default function BookAppointmentPage() {
   return (
     <>
-      <section className="relative bg-white pb-16 pt-[calc(var(--header-h)+2.75rem)] sm:pb-20 sm:pt-[calc(var(--header-h)+3.5rem)] lg:pb-24 lg:pt-[calc(var(--header-h)+4rem)]">
+      <section className="relative isolate overflow-hidden bg-white pb-16 pt-[calc(var(--header-h)+2.75rem)] sm:pb-20 sm:pt-[calc(var(--header-h)+3.5rem)] lg:pb-24 lg:pt-[calc(var(--header-h)+4rem)]">
+        {/* Soft wash behind content — fades out so it never cuts through the form card */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-1/2 surface-bloom"
+          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[420px] bg-[linear-gradient(180deg,#ede7f7_0%,#fae5ec_48%,rgba(255,255,255,0)_100%)] sm:h-[480px] lg:h-[520px]"
         />
-        <Container className="relative">
+
+        <Container className="relative z-10">
           <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 xl:gap-[4.5rem]">
             <div className="flex max-w-[500px] flex-col gap-8 lg:sticky lg:top-[calc(var(--header-h)+1.25rem)] lg:gap-11 lg:self-start">
               <div>
@@ -36,7 +38,7 @@ export default function BookAppointmentPage() {
               <PreferTalkCard className="max-w-[420px]" />
             </div>
 
-            <div className="min-w-0 rounded-[28px] bg-white p-6 shadow-[0_18px_50px_-24px_rgba(36,26,40,0.28)] sm:p-8 lg:p-10">
+            <div className="relative z-10 isolate min-w-0 rounded-[28px] bg-white p-6 shadow-[0_18px_50px_-24px_rgba(36,26,40,0.28)] sm:p-8 lg:p-10">
               <AppointmentForm />
             </div>
           </div>
