@@ -36,7 +36,7 @@ export default function DoctorsPage() {
                 href={`/doctors/${doctor.slug}`}
                 name={doctor.name}
                 role={doctor.role}
-                specialty={doctor.specialty}
+                clinic={doctor.clinic}
                 image={doctor.image}
               />
             ))}

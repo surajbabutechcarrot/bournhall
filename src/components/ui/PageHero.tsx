@@ -24,7 +24,12 @@ export function PageHero({
   className,
 }: PageHeroProps) {
   return (
-    <section className={cn("surface-hero pt-10 pb-14 sm:pt-14 sm:pb-16", className)}>
+    <section
+      className={cn(
+        "surface-hero pt-[calc(var(--header-h)+1.5rem)] pb-14 sm:pt-[calc(var(--header-h)+2rem)] sm:pb-16",
+        className,
+      )}
+    >
       <Container>
         {crumbs ? <Breadcrumbs items={crumbs} className="mb-6" /> : null}
         <div className={cn("grid items-center gap-10", image && "lg:grid-cols-2")}>

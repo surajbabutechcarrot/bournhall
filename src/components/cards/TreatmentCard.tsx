@@ -34,7 +34,7 @@ export function TreatmentCard({
     <Link
       href={href}
       className={cn(
-        "group relative isolate flex h-[421px] flex-col justify-between overflow-hidden rounded-3xl px-8 py-11 transition-transform duration-300 hover:-translate-y-1",
+        "group relative isolate flex treatment-card-height flex-col justify-between overflow-hidden rounded-[28px] p-6 pb-7 transition-transform duration-300 hover:-translate-y-1 sm:p-8 sm:pb-9",
         image ? "bg-lilac-100 text-white" : cn(tones[tone], "text-ink-950"),
         className,
       )}
@@ -50,7 +50,7 @@ export function TreatmentCard({
           />
           <span
             aria-hidden
-            className="absolute inset-0 z-0 bg-[linear-gradient(187deg,rgba(0,0,0,0)_7%,rgba(30,10,18,0.7)_72%)]"
+            className="absolute inset-0 z-0 bg-[linear-gradient(180deg,rgba(40,12,30,0.2)_0%,rgba(30,8,22,0.7)_50%,rgba(20,5,15,0.92)_100%)]"
           />
         </>
       ) : null}
@@ -60,28 +60,49 @@ export function TreatmentCard({
           <Image
             src={illustration}
             alt=""
-            width={114}
-            height={114}
-            className="size-[114px] object-contain"
+            width={100}
+            height={100}
+            className="size-[96px] object-contain"
           />
-        ) : null}
+        ) : (
+          <div className="size-[96px]" />
+        )}
 
-        <span className="ml-auto inline-flex items-center gap-3 text-lg leading-[22px]">
+        <span
+          className={cn(
+            "ml-auto inline-flex items-center gap-2.5 text-sm sm:text-base font-normal leading-5",
+            image ? "text-white" : "text-ink-950",
+          )}
+        >
           Read more
           <ArrowRight
             aria-hidden
             className={cn(
-              "size-[42px] shrink-0 transition-transform duration-200 group-hover:translate-x-1",
-              !image && "text-brand-500",
+              "size-5 shrink-0 transition-transform duration-200 group-hover:translate-x-1",
+              image ? "text-white" : "text-brand-500",
             )}
-            strokeWidth={2}
+            strokeWidth={1.75}
           />
         </span>
       </div>
 
-      <div className="relative z-10 flex flex-col gap-6">
-        <h3 className="text-4xl leading-[42px] font-medium">{name}</h3>
-        <p className="text-lg leading-7">{summary}</p>
+      <div className="relative z-10 flex flex-col gap-3.5">
+        <h3
+          className={cn(
+            "text-3xl sm:text-[34px] leading-[40px] font-medium tracking-tight",
+            image ? "text-white" : "text-ink-950",
+          )}
+        >
+          {name}
+        </h3>
+        <p
+          className={cn(
+            "text-[15px] sm:text-base leading-relaxed",
+            image ? "text-white/90" : "text-ink-700",
+          )}
+        >
+          {summary}
+        </p>
       </div>
     </Link>
   );

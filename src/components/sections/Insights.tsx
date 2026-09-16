@@ -1,31 +1,38 @@
+import { ArrowRight } from "lucide-react";
 import { InsightCard } from "@/components/cards/InsightCard";
-import { Accent } from "@/components/ui/Accent";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { resources } from "@/content/site-content";
 
+const featuredResources = resources.slice(0, 3);
+
 export function Insights() {
   return (
-    <Section>
+    <section className="bg-white section-y">
       <Container>
         <SectionHeading
+          className="mb-8"
           title={
             <>
-              Fertility Insights & <Accent>Resources</Accent>
+              Fertility Insights & <span className="text-brand-500">Resources</span>
             </>
           }
-          description="Guides written by our specialists to help you prepare — clear, practical and free of jargon."
+          description="Expert guidance to help you better understand fertility, treatments and reproductive health."
           action={
-            <Button href="/resources" variant="outline" size="sm">
-              View all
+            <Button
+              href="/resources"
+              variant="outline"
+              size="lg"
+              icon={<ArrowRight aria-hidden className="size-4" strokeWidth={1.6} />}
+            >
+              View all Blogs
             </Button>
           }
         />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {resources.map((item) => (
+        <div data-reveal-stagger className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredResources.map((item) => (
             <InsightCard
               key={item.slug}
               href={`/resources/${item.slug}`}
@@ -36,6 +43,6 @@ export function Insights() {
           ))}
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }

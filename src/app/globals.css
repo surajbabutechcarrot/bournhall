@@ -4,6 +4,64 @@
   --background: #ffffff;
   --foreground: #212020;
   --Color-Main-Primary: #7d1551;
+  --header-h: 68px;
+  --page-gutter: 1.25rem;
+  --section-y: 4rem;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-gutter: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    /* Compact defaults — suits 125%/150% Windows scale (~1280–1536 CSS px wide). */
+    --header-h: 72px;
+    --page-gutter: 3.5rem;
+    --section-y: 4.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --header-h: 76px;
+    --page-gutter: 4.5rem;
+    --section-y: 5rem;
+  }
+}
+
+/* True design-frame density only on large, tall viewports (100% scale 1512+). */
+@media (min-width: 1512px) and (min-height: 900px) {
+  :root {
+    --header-h: 84px;
+    --page-gutter: 100px;
+    --section-y: 6.25rem;
+  }
+}
+
+/* Short CSS viewports (1080p @ 125–150% scale ≈ 720–864px tall). */
+@media (min-width: 1024px) and (max-height: 900px) {
+  :root {
+    --header-h: 64px;
+    --page-gutter: 2.75rem;
+    --section-y: 3.5rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  :root {
+    --header-h: 60px;
+    --page-gutter: 2.25rem;
+    --section-y: 2.75rem;
+  }
+}
+
+@media (min-width: 1280px) and (max-height: 900px) {
+  :root {
+    --page-gutter: 3.25rem;
+  }
 }
 
 /* Palette mirrors the Figma variable set: Color/Purple/*, Color/Gray/*, Color/Text/Primary */
@@ -53,6 +111,74 @@
 html {
   /* Lenis owns smooth scrolling — native CSS smooth fights the RAF loop. */
   scroll-behavior: auto;
+  overflow-x: clip;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(125, 21, 81, 0.35) transparent;
+}
+
+/* Custom branded scrollbar for WebKit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(125, 21, 81, 0.3);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.25s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(125, 21, 81, 0.6);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(125, 21, 81, 0.85);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Hide scrollbar utility across all browsers */
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Nested custom scrollbar utility */
+@utility custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(125, 21, 81, 0.3) transparent;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(125, 21, 81, 0.25);
+    border-radius: 9999px;
+    border: 1.5px solid transparent;
+    background-clip: padding-box;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(125, 21, 81, 0.55);
+  }
+}
+
+body {
+  overflow-x: clip;
 }
 
 html.lenis,
@@ -120,8 +246,21 @@ details summary::marker {
   }
 }
 
+@keyframes why-choose-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* Section gradients sampled pixel-for-pixel from the Figma home page render */
 @utility surface-bloom {
+  background-image: linear-gradient(180deg, #ede7f7 0%, #fae5ec 100%);
+}
+
+@utility surface-hero {
   background-image: linear-gradient(180deg, #ede7f7 0%, #fae5ec 100%);
 }
 
@@ -129,6 +268,549 @@ details summary::marker {
   background-image: linear-gradient(180deg, #f2edf8 0%, #faecf1 100%);
 }
 
+/* Exact Figma export: radial on Rectangle 3 (1512×1180) */
 @utility surface-cta {
-  background-image: linear-gradient(180deg, #ffffff 8%, #7d1551 88%);
+  background-color: #ffffff;
+  background-image: radial-gradient(
+    230.92% 186.48% at 50% -86.48%,
+    rgba(125, 21, 81, 0) 68.05%,
+    #7d1551 82.26%
+  );
+}
+
+/* Short viewports: % radii flatten — switch to fixed ellipse so the bloom holds shape. */
+@media (min-width: 1024px) and (max-height: 900px) {
+  .surface-cta {
+    background-image: radial-gradient(
+      1100px 820px at 50% -280px,
+      rgba(125, 21, 81, 0) 58%,
+      #7d1551 78%
+    );
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .surface-cta {
+    background-image: radial-gradient(
+      960px 680px at 50% -220px,
+      rgba(125, 21, 81, 0) 55%,
+      #7d1551 76%
+    );
+  }
+}
+
+/* Right-side overflow breakout for carousels aligned to container on left */
+.carousel-right-breakout {
+  --carousel-breakout: 1.25rem;
+  margin-right: calc(-1 * var(--carousel-breakout));
+}
+@media (min-width: 640px) {
+  .carousel-right-breakout {
+    --carousel-breakout: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .carousel-right-breakout {
+    --carousel-breakout: max(var(--page-gutter), calc((100vw - 1512px) / 2 + var(--page-gutter)));
+  }
+}
+
+/* Treatments rail: clip at container left, bleed to viewport right */
+.treatments-rail-inset {
+  padding-left: 1.25rem;
+}
+@media (min-width: 640px) {
+  .treatments-rail-inset {
+    padding-left: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .treatments-rail-inset {
+    padding-left: max(var(--page-gutter), calc((100vw - 1512px) / 2 + var(--page-gutter)));
+  }
+}
+
+.rail-right-pad {
+  padding-right: var(--carousel-breakout, 1.25rem);
+}
+
+.dots-container-align {
+  padding-right: var(--carousel-breakout, 0px);
+}
+
+/* Density helpers for Windows display scaling (125% / 150%). */
+.section-y {
+  padding-block: var(--section-y);
+}
+
+.treatment-card-height,
+.doctor-card-height {
+  height: 421px;
+}
+
+.insight-card-height {
+  height: 465px;
+}
+
+@media (min-width: 1024px) and (max-height: 900px) {
+  .treatment-card-height {
+    height: 340px;
+  }
+
+  /* Keep doctor cards taller so faces stay above the info panel. */
+  .doctor-card-height {
+    height: 400px;
+  }
+
+  .insight-card-height {
+    height: 420px;
+  }
+
+  .doctor-card-info {
+    gap: 0.35rem;
+    padding: 0.75rem 0.875rem;
+  }
+
+  .doctor-card-name {
+    font-size: 1.05rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .doctor-card-role,
+  .doctor-card-clinic {
+    font-size: 0.875rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .insight-card-info {
+    gap: 0.4rem;
+    padding: 0.75rem;
+  }
+
+  .insight-card-title {
+    font-size: 1rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .insight-card-excerpt {
+    font-size: 0.8125rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .hero-display {
+    font-size: clamp(2.25rem, 3.6vw, 3.25rem) !important;
+    line-height: 1.12 !important;
+  }
+
+  .hero-copy {
+    padding-top: calc(var(--header-h) + 0.75rem);
+  }
+
+  .home-cta-pad {
+    padding-bottom: 5.5rem !important;
+  }
+
+  .fertility-title {
+    font-size: clamp(2rem, 3.4vw, 2.75rem) !important;
+    line-height: 1.2 !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .treatment-card-height {
+    height: 280px;
+  }
+
+  .doctor-card-height {
+    height: 360px;
+  }
+
+  .insight-card-height {
+    height: 380px;
+  }
+
+  .doctor-card-info {
+    gap: 0.25rem;
+    padding: 0.625rem 0.75rem;
+  }
+
+  .doctor-card-name {
+    font-size: 0.95rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .insight-card-info {
+    gap: 0.3rem;
+    padding: 0.625rem 0.75rem;
+  }
+
+  .insight-card-title {
+    font-size: 0.9375rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .insight-card-excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 0.75rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .hero-display {
+    font-size: clamp(2rem, 3.2vw, 2.75rem) !important;
+    line-height: 1.12 !important;
+  }
+
+  .hero-desc {
+    margin-top: 0.75rem;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  .hero-actions {
+    margin-top: 1.25rem;
+  }
+
+  .hero-trust {
+    margin-top: 1rem;
+  }
+
+  .home-cta-pad {
+    padding-bottom: 4rem !important;
+  }
+
+  .fertility-title {
+    font-size: clamp(1.75rem, 3vw, 2.35rem) !important;
+    line-height: 1.18 !important;
+  }
+}
+
+@media (min-width: 1512px) and (min-height: 900px) {
+  .hero-display {
+    font-size: 66px !important;
+    line-height: 74px !important;
+  }
+
+  .section-title {
+    font-size: 52px !important;
+    line-height: 64px !important;
+  }
+
+  .fertility-title {
+    font-size: 52px !important;
+    line-height: 66px !important;
+  }
+}
+
+/* Fertility Health — responsive art + height without fixed 1319px bleed. */
+.fertility-section {
+  min-height: 0;
+}
+
+@media (min-width: 1024px) {
+  .fertility-section {
+    min-height: min(720px, 100dvh);
+  }
+
+  .fertility-art {
+    width: min(58%, 720px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .fertility-section {
+    min-height: min(800px, 100dvh);
+  }
+
+  .fertility-art {
+    width: min(56%, 780px);
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 900px) {
+  .fertility-section {
+    min-height: min(640px, 100dvh);
+  }
+
+  .fertility-art {
+    width: min(52%, 640px);
+  }
+
+  .fertility-copy {
+    padding-block: 1.5rem;
+  }
+
+  .support-promo {
+    padding-block: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .fertility-section {
+    min-height: min(560px, 100dvh);
+  }
+
+  .fertility-art {
+    width: min(48%, 560px);
+  }
+}
+
+/* True Figma composition — only when CSS viewport can absorb the bleed. */
+@media (min-width: 1512px) and (min-height: 900px) {
+  .fertility-section {
+    min-height: 862px;
+  }
+
+  .fertility-art {
+    left: -394px;
+    width: 1319px;
+  }
+}
+
+/* Treatments mega-menu — panel + staggered item enter/exit */
+.mega-menu-shell {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition:
+    opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 0.28s;
+}
+
+.mega-menu-shell[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.mega-menu-panel {
+  transform-origin: top center;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mega-menu-panel[data-open="false"] {
+  transform: scale(0.985);
+}
+
+.mega-menu-panel[data-open="true"] {
+  transform: scale(1);
+}
+
+.mega-anim {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0s;
+}
+
+.mega-menu-panel[data-open="true"] .mega-anim {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(0.06s + var(--mega-i, 0) * 0.055s);
+}
+
+.mega-menu-panel[data-open="false"] .mega-anim {
+  opacity: 0;
+  transform: translateY(10px);
+  transition-duration: 0.2s;
+  transition-delay: calc(
+    (var(--mega-n, 4) - 1 - var(--mega-i, 0)) * 0.03s
+  );
+}
+
+.mega-anim-featured {
+  transform: translateY(14px) scale(0.96);
+}
+
+.mega-menu-panel[data-open="true"] .mega-anim-featured {
+  transform: translateY(0) scale(1);
+}
+
+.mega-menu-panel[data-open="false"] .mega-anim-featured {
+  transform: translateY(8px) scale(0.97);
+}
+
+.mega-anim :is(p, li, .mega-anim-trailing) {
+  transform: translateY(8px);
+  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0s;
+}
+
+.mega-menu-panel[data-open="true"] .mega-anim p {
+  transform: translateY(0);
+  transition-delay: calc(0.08s + var(--mega-i, 0) * 0.05s);
+}
+
+.mega-menu-panel[data-open="true"] .mega-anim li {
+  transform: translateY(0);
+  transition-delay: calc(
+    0.12s + var(--mega-i, 0) * 0.05s + var(--mega-link-i, 0) * 0.04s
+  );
+}
+
+.mega-menu-panel[data-open="true"] .mega-anim .mega-anim-trailing {
+  transform: translateY(0);
+  transition-delay: calc(0.2s + var(--mega-i, 0) * 0.05s);
+}
+
+.mega-menu-panel[data-open="false"] .mega-anim :is(p, li, .mega-anim-trailing) {
+  transform: translateY(6px);
+  transition-duration: 0.16s;
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mega-menu-shell,
+  .mega-menu-panel,
+  .mega-anim,
+  .mega-anim :is(p, li, .mega-anim-trailing) {
+    transition: opacity 0.15s ease !important;
+    transform: none !important;
+  }
+
+  .mega-menu-shell[data-open="false"],
+  .mega-menu-panel[data-open="false"] .mega-anim {
+    opacity: 0;
+  }
+
+  .mega-menu-shell[data-open="true"],
+  .mega-menu-panel[data-open="true"] .mega-anim {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 900px) {
+  .about-history-media {
+    height: min(460px, 62vh) !important;
+  }
+
+  .about-history-overlay {
+    inset-inline: 1rem;
+    bottom: 1rem;
+    padding: 0.875rem 1rem;
+  }
+
+  .about-history-overlay p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .about-history-media {
+    height: min(400px, 58vh) !important;
+  }
+
+  .about-history-overlay p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Treatments mega-menu featured tile — keep display/size out of long Tailwind strings. */
+.mega-featured {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .mega-featured {
+    display: block;
+    position: relative;
+    height: 200px;
+    width: min(240px, 22vw);
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 1.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .mega-featured {
+    height: 264px;
+    width: 335px;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 900px) {
+  .mega-featured {
+    height: 200px;
+    width: min(240px, 20vw);
+  }
+
+  .mega-menu-panel {
+    max-width: min(960px, 100%);
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 760px) {
+  .mega-featured {
+    height: 168px;
+    width: min(200px, 18vw);
+  }
+
+  .mega-menu-panel {
+    max-width: min(880px, 100%);
+    padding-block: 1.25rem;
+    padding-inline: 1.25rem;
+  }
+}
+
+/* Mouse scroll down indicator animation */
+@keyframes scrollWheel {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(5px);
+  }
+  70% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  71% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes chevronBob {
+  0%, 100% {
+    opacity: 0.45;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(3px);
+  }
+}
+
+.animate-scroll-wheel {
+  animation: scrollWheel 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.animate-chevron-bob {
+  animation: chevronBob 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-wheel,
+  .animate-chevron-bob {
+    animation: none;
+  }
 }

@@ -24,6 +24,7 @@ export function SectionHeading({
 
   return (
     <div
+      data-reveal
       className={cn(
         "mb-8 flex flex-col gap-4",
         centered && "items-center text-center",
@@ -39,14 +40,19 @@ export function SectionHeading({
         ) : null}
         <h2
           className={cn(
-            "text-[2rem] leading-[1.23] font-medium text-ink-950 sm:text-[2.5rem] lg:text-[52px] lg:leading-[64px]",
+            "section-title text-[2rem] leading-[1.23] font-medium text-ink-950 sm:text-[2.5rem] lg:text-[clamp(2rem,3.4vw,3.25rem)] lg:leading-[1.2]",
             titleClassName,
           )}
         >
           {title}
         </h2>
         {description ? (
-          <p className={cn("mt-4 text-lg leading-[28px] text-brand-600", centered && "mx-auto")}>
+          <p
+            className={cn(
+              "mt-3 text-base leading-relaxed text-brand-600 sm:mt-4 sm:text-lg sm:leading-[28px]",
+              centered && "mx-auto",
+            )}
+          >
             {description}
           </p>
         ) : null}

@@ -29,7 +29,7 @@ type CommonProps = {
 };
 
 type ButtonAsButton = CommonProps &
-  Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className"> & {
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children"> & {
     href?: undefined;
   };
 
@@ -42,41 +42,75 @@ type ButtonAsLink = CommonProps & {
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const baseClass =
-  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold leading-5 transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50";
+  "group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold leading-5 transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50";
 
-export function Button(props: ButtonProps) {
-  const { children, className, variant = "primary", size = "md", icon, iconBefore } = props;
-  const classes = cn(baseClass, variants[variant], sizes[size], className);
-
-  const content = (
+function ButtonContent({
+  children,
+  icon,
+  iconBefore,
+}: {
+  children: ReactNode;
+  icon?: ReactNode;
+  iconBefore?: ReactNode;
+}) {
+  return (
     <>
       {iconBefore}
       {children}
-      {icon}
+      {icon ? (
+        <span className="inline-flex transition-transform duration-300 ease-out group-hover:-rotate-45">
+          {icon}
+        </span>
+      ) : null}
     </>
   );
+}
 
+export function Button(props: ButtonProps) {
   if ("href" in props && props.href) {
-    if (props.href.startsWith("/")) {
+    const {
+      children,
+      className,
+      variant = "primary",
+      size = "md",
+      icon,
+      iconBefore,
+      href,
+      disabled,
+    } = props;
+    const classes = cn(baseClass, variants[variant], sizes[size], className);
+    const content = <ButtonContent icon={icon} iconBefore={iconBefore}>{children}</ButtonContent>;
+
+    if (href.startsWith("/")) {
       return (
-        <Link href={props.href} className={classes} aria-disabled={props.disabled}>
+        <Link href={href} className={classes} aria-disabled={disabled}>
           {content}
         </Link>
       );
     }
 
     return (
-      <a href={props.href} className={classes} aria-disabled={props.disabled}>
+      <a href={href} className={classes} aria-disabled={disabled}>
         {content}
       </a>
     );
   }
 
-  const { type = "button", ...rest } = props as ButtonAsButton;
+  const {
+    children,
+    className,
+    variant = "primary",
+    size = "md",
+    icon,
+    iconBefore,
+    type = "button",
+    ...domProps
+  } = props;
+  const classes = cn(baseClass, variants[variant], sizes[size], className);
 
   return (
-    <button type={type} className={classes} {...rest}>
-      {content}
+    <button type={type} className={classes} {...domProps}>
+      <ButtonContent icon={icon} iconBefore={iconBefore}>{children}</ButtonContent>
     </button>
   );
 }

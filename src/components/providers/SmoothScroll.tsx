@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { ReactLenis, useLenis } from "lenis/react";
 import type { ReactNode } from "react";
+import { GsapReveal, LenisGsapBridge } from "@/components/providers/GsapReveal";
 
 function ScrollToTop() {
   const pathname = usePathname();
@@ -27,7 +28,14 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     return () => media.removeEventListener("change", sync);
   }, []);
 
-  if (enabled !== true) return children;
+  if (enabled !== true) {
+    return (
+      <>
+        <GsapReveal />
+        {children}
+      </>
+    );
+  }
 
   return (
     <ReactLenis
@@ -36,13 +44,18 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         autoRaf: true,
         lerp: 0.08,
         duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.2,
         anchors: true,
         syncTouch: false,
         stopInertiaOnNavigate: true,
       }}
     >
       <ScrollToTop />
+      <LenisGsapBridge />
+      <GsapReveal />
       {children}
     </ReactLenis>
   );

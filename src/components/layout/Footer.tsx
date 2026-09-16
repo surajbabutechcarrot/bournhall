@@ -27,6 +27,13 @@ function SocialIcon({ label, className }: { label: string; className?: string })
       </svg>
     );
   }
+  if (label === "TikTok") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
+        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.33 6.33 0 0 0-1-.08A6.34 6.34 0 0 0 3 15.66a6.34 6.34 0 0 0 10.82 4.49 6.34 6.34 0 0 0 1.95-4.49V8.65a8.28 8.28 0 0 0 5.23 1.83V7.03a4.84 4.84 0 0 1-1.41-.34Z" />
+      </svg>
+    );
+  }
   if (label === "X") {
     return (
       <svg viewBox="0 0 24 24" className={className} aria-hidden fill="currentColor">
@@ -51,48 +58,42 @@ function SocialIcon({ label, className }: { label: string; className?: string })
 export function Footer() {
   return (
     <footer className="bg-brand-500 text-white">
-      <Container className="grid gap-10 pt-4 pb-12 sm:pb-14 lg:grid-cols-[1.3fr_repeat(3,1fr)] lg:gap-12">
-        <div>
-          <Logo inverted href="/" />
-          <p className="mt-5 max-w-xs text-sm leading-6 text-white/70">
-            Pioneer of IVF. Compassionate, internationally accredited fertility care across Dubai,
-            Abu Dhabi and Al Ain.
+      <Container className="grid grid-cols-2 gap-x-6 gap-y-10 pt-10 pb-16 sm:grid-cols-2 sm:gap-x-12 sm:pb-20 lg:grid-cols-[1.4fr_1fr_1.1fr_1fr] lg:gap-14">
+        <div className="col-span-2 lg:col-span-1">
+          <Logo inverted href="/" size="lg" />
+          <p className="mt-4 max-w-sm text-sm sm:text-[15px] leading-relaxed text-white/70">
+            Compassionate, advanced fertility care across three clinics in the UAE.
           </p>
-          <p className="mt-6 text-sm font-semibold">Toll free {site.phone}</p>
-          <a
-            href={`mailto:${site.email}`}
-            className="mt-1 block text-sm text-white/70 transition-colors hover:text-white"
-          >
-            {site.email}
-          </a>
         </div>
 
-        <FooterColumn title="Treatments" links={footerNav.treatments} />
-        <FooterColumn title="Who we are" links={footerNav.about} />
+        <FooterColumn title="Quick Links" links={footerNav.quickLinks} />
+        <FooterColumn title="Patient Information" links={footerNav.patientInformation} />
 
-        <div>
-          <FooterColumn title="For patients" links={footerNav.patients} />
-          <p className="mt-7 text-sm font-semibold">Follow us</p>
-          <ul className="mt-3 flex items-center gap-2.5">
-            {socialLinks.map((item) => (
-              <li key={item.label}>
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={item.label}
-                  className="grid size-9 place-items-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/30"
-                >
-                  <SocialIcon label={item.label} className="size-4" />
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div className="col-span-2 sm:col-span-2 lg:col-span-1 flex flex-col sm:flex-row lg:flex-col justify-between sm:items-start lg:items-start gap-8">
+          <FooterColumn title="Policies" links={footerNav.policies} />
+          <div>
+            <p className="text-sm font-semibold text-white">Socials</p>
+            <ul className="mt-3.5 flex items-center gap-2.5">
+              {socialLinks.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={item.label}
+                    className="grid size-9.5 place-items-center rounded-full bg-white/20 text-white transition-colors hover:bg-white/35 active:scale-95"
+                  >
+                    <SocialIcon label={item.label} className="size-4" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </Container>
 
-      <Container className="border-t border-white/15 py-6">
-        <p className="text-center text-xs text-white/60">
+      <Container className="border-t border-white/10 py-6 sm:py-7">
+        <p className="text-center text-xs sm:text-sm text-white/60">
           © 2026 {site.legalName}. All rights reserved.
         </p>
       </Container>
@@ -109,13 +110,13 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <p className="text-sm font-semibold">{title}</p>
+      <p className="text-base font-semibold text-white">{title}</p>
       <ul className="mt-4 space-y-2.5">
         {(links ?? []).map((link) => (
           <li key={link.href + link.label}>
             <Link
               href={link.href}
-              className="text-sm text-white/70 transition-colors hover:text-white"
+              className="text-base font-normal text-white/70 transition-colors hover:text-white"
             >
               {link.label}
             </Link>

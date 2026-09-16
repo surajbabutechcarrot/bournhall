@@ -22,7 +22,7 @@ export function Container({
   size = "default",
 }: ContainerProps) {
   return (
-    <Tag className={cn("mx-auto w-full px-5 sm:px-8 lg:px-[100px]", sizes[size], className)}>
+    <Tag className={cn("mx-auto w-full px-4 sm:px-8 lg:px-[var(--page-gutter)]", sizes[size], className)}>
       {children}
     </Tag>
   );

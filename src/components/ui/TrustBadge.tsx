@@ -32,27 +32,32 @@ export function TrustBadge({
   }
 
   return (
-    <div className={cn("flex items-center gap-2", className)}>
-      <ul className="flex items-center">
+    <div
+      className={cn(
+        "flex max-w-full flex-col items-start gap-4 md:flex-row md:items-center md:gap-3",
+        className,
+      )}
+    >
+      <ul className="flex shrink-0 items-center">
         {avatars.map((avatar, index) => (
-          <li key={avatar.src + index} className={cn(index > 0 && "-ml-5")}>
+          <li key={avatar.src + index} className={cn(index > 0 && "-ml-4 md:-ml-5")}>
             <Image
               src={avatar.src}
               alt={avatar.alt}
               width={60}
               height={60}
-              sizes="60px"
-              className="size-[60px] rounded-full border-2 border-white bg-[#f2e5ea] object-cover object-top"
+              sizes="(max-width: 768px) 48px, 60px"
+              className="size-12 rounded-full border-2 border-white bg-[#f2e5ea] object-cover object-top md:size-[60px]"
             />
           </li>
         ))}
       </ul>
-      <div className="flex flex-col gap-[5px]">
-        <p className="text-[22px] leading-5 text-brand-500">
+      <div className="min-w-0 flex-1">
+        <p className="text-lg leading-snug text-brand-500 md:text-[22px] md:leading-5">
           {displayCount ? <span className="font-bold">{displayCount} </span> : null}
           {displayLabel ? <span className="font-medium">{displayLabel}</span> : null}
         </p>
-        <p className="text-sm leading-5 text-brand-600">{subtitle}</p>
+        <p className="mt-1 text-sm leading-5 text-brand-600">{subtitle}</p>
       </div>
     </div>
   );

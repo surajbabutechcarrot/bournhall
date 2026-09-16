@@ -1,14 +1,14 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { SiteImage } from "@/components/ui/SiteImage";
+import Image from "next/image";
+import { MapPin } from "lucide-react";
 import { cn } from "@/lib/cn";
 
 type DoctorCardProps = {
   href: string;
   name: string;
-  specialty: string;
-  role?: string;
-  clinic?: string;
+  role: string;
+  specialty?: string;
+  clinic: string;
   image: { src: string; alt: string };
   className?: string;
 };
@@ -16,41 +16,47 @@ type DoctorCardProps = {
 export function DoctorCard({
   href,
   name,
-  specialty,
   role,
   clinic,
   image,
   className,
 }: DoctorCardProps) {
-  const location = clinic ?? role;
-
   return (
     <Link
       href={href}
       className={cn(
-        "group relative isolate aspect-square overflow-hidden rounded-3xl bg-petal-50 transition-transform duration-300 hover:-translate-y-1",
+        "group relative isolate flex doctor-card-height flex-col justify-end overflow-hidden rounded-[28px] bg-[#f4ebf1] p-4 pb-5 transition-transform duration-300 hover:-translate-y-1 sm:p-5 sm:pb-6 lg:p-6 lg:pb-7",
         className,
       )}
     >
-      <SiteImage
-        src={image.src}
-        alt={image.alt}
-        sizes="(min-width: 1024px) 400px, 80vw"
-        className="absolute inset-0 z-0 size-full"
-        imageClassName="object-cover object-top"
-      />
+      {/*
+        Image is shorter than the card and bottom-anchored so the soft card
+        background creates headroom at the top (matches Figma framing).
+      */}
+      <div className="pointer-events-none absolute inset-x-0 top-[7%] bottom-0 overflow-hidden">
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          sizes="(min-width: 1024px) 416px, 80vw"
+          data-no-parallax
+          className="object-cover object-[center_18%]"
+        />
+      </div>
 
-      <div className="absolute inset-x-4 bottom-6 z-10 flex items-end justify-between gap-3 rounded-2xl bg-white px-4 py-3.5 shadow-card">
-        <div className="min-w-0">
-          <h3 className="truncate text-[15px] font-bold text-ink-900">{name}</h3>
-          <p className="mt-0.5 truncate text-xs text-ink-500">{specialty}</p>
-          {location ? (
-            <p className="mt-0.5 truncate text-xs font-medium text-brand-500">{location}</p>
-          ) : null}
-        </div>
-        <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-brand-500 text-white transition-colors group-hover:bg-brand-600">
-          <ArrowUpRight aria-hidden className="size-4" />
-        </span>
+      <div className="doctor-card-info relative z-10 flex w-full flex-col gap-1.5 rounded-2xl bg-white p-3 shadow-card sm:gap-2 sm:p-4">
+        <h3 className="doctor-card-name text-lg leading-snug font-medium text-ink-900 sm:text-xl sm:leading-tight">
+          {name}
+        </h3>
+        <p className="doctor-card-role text-sm leading-snug text-brand-500 sm:text-base">{role}</p>
+        <p className="doctor-card-clinic flex items-center gap-2 text-sm leading-5 text-ink-500">
+          <MapPin
+            aria-hidden
+            className="size-4 shrink-0 sm:size-[18px]"
+            strokeWidth={1.6}
+          />
+          {clinic}
+        </p>
       </div>
     </Link>
   );

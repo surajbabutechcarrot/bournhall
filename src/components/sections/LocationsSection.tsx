@@ -1,27 +1,34 @@
-import { LocationCard } from "@/components/cards/LocationCard";
-import { Accent } from "@/components/ui/Accent";
 import { ArrowLink } from "@/components/ui/ArrowLink";
+import { LocationCard } from "@/components/cards/LocationCard";
 import { Carousel } from "@/components/ui/Carousel";
 import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { locations } from "@/content/locations";
 
+const clinicLocations = locations.filter((location) => location.slug !== "virtual");
+
 export function LocationsSection() {
   return (
-    <Section>
+    <section className="bg-white section-y">
       <Container>
         <SectionHeading
+          className="mb-8"
           title={
             <>
-              Find a Bourn Hall Clinic <Accent>Near You</Accent>
+              Find a Bourn Hall Clinic <span className="text-brand-500">Near You</span>
             </>
           }
-          action={<ArrowLink href="/clinics">View all locations</ArrowLink>}
+          titleClassName="lg:text-[47px] lg:leading-[64px]"
+          action={
+            <ArrowLink href="/clinics" tone="brand">
+              View all locations
+            </ArrowLink>
+          }
         />
 
-        <Carousel label="Bourn Hall clinic locations">
-          {locations.map((location, index) => (
+        <div data-reveal>
+          <Carousel label="Bourn Hall clinic locations">
+          {clinicLocations.map((location, index) => (
             <LocationCard
               key={location.slug}
               href={`/clinics/${location.slug}`}
@@ -31,11 +38,12 @@ export function LocationsSection() {
               phone={location.phone}
               image={location.image}
               featured={index === 1}
-              className="w-[82%] shrink-0 snap-start sm:w-[48%] lg:w-[32%]"
+              className="w-[82%] shrink-0 snap-start sm:w-[48%] lg:w-[calc((100%-4rem)/3)]"
             />
           ))}
         </Carousel>
+        </div>
       </Container>
-    </Section>
+    </section>
   );
 }

@@ -34,6 +34,7 @@ export function SiteImage({
         height={height}
         sizes={sizes}
         priority={priority}
+        data-scroll-media
         className={cn("object-cover", imageClassName)}
       />
     </div>

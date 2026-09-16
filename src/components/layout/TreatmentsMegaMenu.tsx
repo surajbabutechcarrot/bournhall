@@ -1,5 +1,9 @@
+"use client";
+
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { treatmentsMegaMenu } from "@/lib/site";
 import { cn } from "@/lib/cn";
@@ -7,44 +11,76 @@ import { cn } from "@/lib/cn";
 type TreatmentsMegaMenuProps = {
   id?: string;
   className?: string;
+  open?: boolean;
   onNavigate?: () => void;
 };
 
-export function TreatmentsMegaMenu({ id, className, onNavigate }: TreatmentsMegaMenuProps) {
+export function TreatmentsMegaMenu({
+  id,
+  className,
+  open = true,
+  onNavigate,
+}: TreatmentsMegaMenuProps) {
+  const pathname = usePathname();
   const { columns, featured } = treatmentsMegaMenu;
+  const columnCount = columns.length;
 
   return (
     <div
       id={id}
+      data-open={open ? "true" : "false"}
       className={cn(
-        "w-[min(1068px,calc(100vw-2.5rem))] rounded-3xl bg-white px-7 py-8 shadow-lift",
+        "mega-menu-panel rounded-3xl bg-white px-5 py-6 shadow-lift sm:px-6 sm:py-7 xl:px-7 xl:py-8",
         className,
       )}
     >
-      <div className="flex gap-3">
-        {columns.map((column) => (
-          <div key={column.title} className="flex min-w-0 flex-1 flex-col gap-3">
-            <p className="text-base leading-[26px] font-semibold text-brand-500">{column.title}</p>
+      <div className="flex gap-3 xl:gap-4">
+        {columns.map((column, columnIndex) => (
+          <div
+            key={column.title}
+            className="mega-anim flex min-w-0 flex-1 flex-col gap-2.5 sm:gap-3"
+            style={
+              {
+                "--mega-i": columnIndex,
+                "--mega-n": columnCount + 1,
+              } as CSSProperties
+            }
+          >
+            <p className="text-sm leading-snug font-semibold text-brand-500 xl:text-base xl:leading-[26px]">
+              {column.title}
+            </p>
 
-            <ul className="flex flex-col gap-3">
-              {column.links.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    onClick={onNavigate}
-                    className="text-sm leading-5 font-medium text-ink-900 transition-colors hover:text-brand-500"
+            <ul className="flex flex-col gap-2 sm:gap-3">
+              {column.links.map((link, linkIndex) => {
+                const isActive = pathname === link.href;
+                return (
+                  <li
+                    key={link.label}
+                    style={{ "--mega-link-i": linkIndex } as CSSProperties}
                   >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+                    <Link
+                      href={link.href}
+                      onClick={onNavigate}
+                      className={cn(
+                        "text-sm leading-5 font-medium transition-colors",
+                        isActive
+                          ? "font-semibold text-brand-500"
+                          : "text-ink-900 hover:text-brand-500",
+                      )}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
             {"trailing" in column && column.trailing ? (
               <Link
                 href={column.trailing.href}
                 onClick={onNavigate}
-                className="pt-3 text-base leading-[26px] font-semibold text-brand-500 transition-colors hover:text-brand-600"
+                className="mega-anim-trailing pt-2 text-sm leading-snug font-semibold text-brand-500 transition-colors hover:text-brand-600 xl:pt-3 xl:text-base xl:leading-[26px]"
               >
                 {column.trailing.label}
               </Link>
@@ -55,20 +91,26 @@ export function TreatmentsMegaMenu({ id, className, onNavigate }: TreatmentsMega
         <Link
           href={featured.href}
           onClick={onNavigate}
-          className="relative hidden h-[264px] w-[335px] shrink-0 overflow-hidden rounded-3xl sm:block"
+          className="mega-featured mega-anim mega-anim-featured group"
+          style={
+            {
+              "--mega-i": columnCount,
+              "--mega-n": columnCount + 1,
+            } as CSSProperties
+          }
         >
           <Image
             src={featured.image.src}
             alt={featured.image.alt}
             fill
-            sizes="335px"
-            className="object-cover"
+            sizes="(min-width: 1280px) 335px, 240px"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           />
           <span
             aria-hidden
             className="absolute inset-0 bg-[linear-gradient(186deg,rgba(0,0,0,0)_7%,rgba(30,10,18,0.1)_63%)]"
           />
-          <span className="absolute bottom-6 left-6 inline-flex h-[50px] items-center gap-2 rounded-full bg-brand-500 px-6 text-sm leading-5 font-semibold text-white transition-colors hover:bg-brand-600">
+          <span className="absolute bottom-4 left-4 inline-flex h-10 items-center gap-2 rounded-full bg-brand-500 px-4 text-sm leading-5 font-semibold text-white transition-colors group-hover:bg-brand-600 xl:bottom-6 xl:left-6 xl:h-[50px] xl:px-6">
             {featured.label}
             <ArrowRight aria-hidden className="size-5" strokeWidth={1.6} />
           </span>

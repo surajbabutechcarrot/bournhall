@@ -1,4 +1,12 @@
 export const images = {
+  heroWoman: {
+    src: "/images/hero-woman.png",
+    alt: "A woman smiling at the beginning of her fertility journey",
+  },
+  heroMan: {
+    src: "/images/hero-man.png",
+    alt: "A man smiling at the beginning of his fertility journey",
+  },
   heroCouple: {
     src: "/images/hero-couple.png",
     alt: "A couple smiling together at the beginning of their fertility journey",
@@ -18,6 +26,18 @@ export const images = {
   supportMaleFertility: {
     src: "/images/support-male-fertility.png",
     alt: "Illustration of sperm approaching an egg",
+  },
+  insightConsultation: {
+    src: "/images/insights/ivf-consultation.png",
+    alt: "Couple in a fertility consultation with a specialist",
+  },
+  insightFemaleFertility: {
+    src: "/images/insights/female-fertility-age.png",
+    alt: "Expectant mother considering fertility and age",
+  },
+  insightSpermHealth: {
+    src: "/images/insights/sperm-health.png",
+    alt: "Microscopic illustration related to sperm and egg health",
   },
   fertilityHealth: {
     src: "/images/fertility-health.png",
@@ -80,16 +100,16 @@ export const images = {
     alt: "Couple with their child after a successful fertility journey",
   },
   doctorOne: {
-    src: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?auto=format&fit=crop&w=800&q=80",
-    alt: "Portrait of a fertility specialist",
+    src: "/images/doctors/dr-ghada-hussein.png",
+    alt: "Portrait of Dr. Ghada Hussein",
   },
   doctorTwo: {
-    src: "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=800&q=80",
-    alt: "Portrait of a reproductive medicine consultant",
+    src: "/images/doctors/dr-sara-al-nuaimi.png",
+    alt: "Portrait of Dr. Sara Al Nuaimi",
   },
   doctorThree: {
-    src: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80",
-    alt: "Portrait of a consultant in reproductive medicine",
+    src: "/images/doctors/dr-sara-al-nuaimi-2.png",
+    alt: "Portrait of a Bourn Hall fertility specialist",
   },
   doctorFour: {
     src: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=800&q=80",
@@ -104,16 +124,16 @@ export const images = {
     alt: "Portrait of a fertility specialist",
   },
   dubai: {
-    src: "https://images.unsplash.com/photo-1546412414-e1885259563a?auto=format&fit=crop&w=1200&q=80",
-    alt: "Dubai coastline, home to Bourn Hall Fertility Clinic Dubai",
+    src: "/images/clinics/dubai.png",
+    alt: "Dubai skyline near Bourn Hall Fertility Clinic Dubai",
   },
   abuDhabi: {
-    src: "https://images.unsplash.com/photo-1518684079-3c830dcef090?auto=format&fit=crop&w=1200&q=80",
-    alt: "Abu Dhabi skyline, home to Bourn Hall Fertility Clinic Abu Dhabi",
+    src: "/images/clinics/abu-dhabi.png",
+    alt: "Abu Dhabi skyline near Bourn Hall Fertility Clinic Abu Dhabi",
   },
   alAin: {
-    src: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1200&q=80",
-    alt: "Desert landscape near Bourn Hall Fertility Clinic Al Ain",
+    src: "/images/clinics/al-ain.png",
+    alt: "Al Ain landscape near Bourn Hall Fertility Clinic Al Ain",
   },
   virtual: {
     src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80",

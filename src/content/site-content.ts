@@ -158,10 +158,32 @@ export const faqs = [
 ] as const;
 
 export const faqHelp = {
-  title: "Still have questions?",
-  body: "Our patient coordinators answer honestly and confidentially — in English or Arabic.",
+  body: "Have a question not listed here? Our team is happy to help.\nContact us directly or book a free initial call.",
   cta: { href: "/contact", label: "Contact Us" },
 } as const;
+
+export const faqCategories = [
+  {
+    title: "Treatments & Services",
+    body: "Find answers to common questions about fertility treatments, appointments, costs and care.",
+  },
+  {
+    title: "Appointments & Consultations",
+    body: "Learn how to book a visit, what to bring to your first consultation, and how follow-up care works.",
+  },
+  {
+    title: "Success & Safety",
+    body: "Understand how we measure outcomes, laboratory standards, and the safeguards around every treatment.",
+  },
+  {
+    title: "Cost & Financing",
+    body: "Explore treatment pricing, what is included in packages, and available payment plan options.",
+  },
+  {
+    title: "General Questions",
+    body: "Answers about clinic locations, languages spoken, international patients, and getting started.",
+  },
+] as const;
 
 export const journeySteps = [
   {
@@ -180,26 +202,35 @@ export const journeySteps = [
 
 export const resources = [
   {
+    slug: "first-ivf-consultation",
+    title: "What to Expect During Your First IVF Consultation",
+    excerpt:
+      "Understanding the first steps in your IVF journey and what our specialists will discuss with you.",
+    category: "Guide",
+    image: images.insightConsultation,
+  },
+  {
+    slug: "age-and-female-fertility",
+    title: "How Age Affects Female Fertility: What You Need to Know",
+    excerpt:
+      "A clear guide to how reproductive potential changes over time and what options are available.",
+    category: "Guide",
+    image: images.insightFemaleFertility,
+  },
+  {
+    slug: "sperm-health",
+    title: "Understanding Sperm Health and What Affects It",
+    excerpt:
+      "Key factors that influence sperm quality and how our specialists assess and treat male infertility.",
+    category: "Insights",
+    image: images.insightSpermHealth,
+  },
+  {
     slug: "success-rates",
     title: "Understanding IVF success rates",
     excerpt:
       "Age, diagnosis and laboratory quality all shape outcomes. Here is how we talk about success honestly.",
     category: "Guide",
     image: images.consultation,
-  },
-  {
-    slug: "preparing-for-ivf",
-    title: "How to prepare for your first IVF cycle",
-    excerpt: "Practical steps for tests, lifestyle and questions to bring to your specialist.",
-    category: "Guide",
-    image: images.preservation,
-  },
-  {
-    slug: "egg-freezing-age",
-    title: "When to consider egg freezing",
-    excerpt:
-      "A clear look at fertility windows, storage and what vitrification can — and cannot — promise.",
-    category: "Insights",
-    image: images.embryo,
   },
 ] as const;
