@@ -51,6 +51,10 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         anchors: true,
         syncTouch: false,
         stopInertiaOnNavigate: true,
+        prevent: (node) =>
+          node instanceof HTMLElement &&
+          (node.hasAttribute("data-lenis-prevent") ||
+            Boolean(node.closest("[data-lenis-prevent], [role='listbox']"))),
       }}
     >
       <ScrollToTop />

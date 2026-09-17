@@ -9,10 +9,10 @@ import { locations } from "@/content/locations";
 import { cn } from "@/lib/cn";
 
 const fieldShell =
-  "flex h-[52px] w-full items-center gap-3 rounded-xl border border-[#e6dde3] bg-white px-4 text-[15px] text-ink-900 outline-none transition-colors placeholder:text-[#9a9096] focus-within:border-brand-400";
+  "flex h-[52px] w-full items-center gap-3 rounded-xl border border-[#e6dde3] bg-white px-4 text-[15px] text-ink-900 transition-all placeholder:text-[#9a9096] focus-within:border-brand-400 focus-within:shadow-[0_0_0_3px_rgba(125,21,81,0.08)]";
 
 const controlClass =
-  "h-full w-full min-w-0 border-0 bg-transparent text-[15px] leading-5 text-ink-900 outline-none placeholder:text-[#9a9096]";
+  "h-full w-full min-w-0 border-0 bg-transparent text-[15px] leading-5 text-ink-900 outline-none focus:outline-none focus-visible:outline-none focus:ring-0 placeholder:text-[#9a9096]";
 
 const clinicOptions = locations
   .filter((location) => location.slug !== "virtual")
@@ -20,7 +20,7 @@ const clinicOptions = locations
 
 const treatmentOptions = treatments.map((treatment) => ({
   value: treatment.name,
-  label: treatment.shortName || treatment.name,
+  label: treatment.name,
 }));
 
 function Field({
@@ -133,7 +133,7 @@ export function AppointmentForm() {
           name="message"
           rows={4}
           placeholder="Share any details that will help us prepare for your consultation"
-          className="min-h-[110px] w-full resize-y rounded-xl border border-[#e6dde3] bg-white px-4 py-3.5 text-[15px] leading-6 text-ink-900 outline-none transition-colors placeholder:text-[#9a9096] focus:border-brand-400"
+          className="min-h-[110px] w-full resize-y rounded-xl border border-[#e6dde3] bg-white px-4 py-3.5 text-[15px] leading-6 text-ink-900 outline-none transition-all placeholder:text-[#9a9096] focus:border-brand-400 focus:outline-none focus:shadow-[0_0_0_3px_rgba(125,21,81,0.08)] focus-visible:outline-none"
         />
       </label>
 

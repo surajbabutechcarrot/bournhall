@@ -29,7 +29,7 @@ export const treatments = [
     card: { image: images.icsi, tone: "lilac" } as const,
     description:
       "ICSI places a single sperm directly into an egg. It is often recommended for low sperm count, previous fertilisation failure, or when using frozen or surgically retrieved sperm.",
-    image: images.embryo,
+    image: images.icsi,
     icon: "microscope" as const,
     tone: "featured" as const,
     highlights: [
@@ -66,7 +66,7 @@ export const treatments = [
     card: { image: images.eggFreezing, tone: "lilac" } as const,
     description:
       "Egg freezing gives you more choice about when to start a family. We use proven vitrification techniques in a controlled embryology laboratory.",
-    image: images.preservation,
+    image: images.eggFreezing,
     icon: "snowflake" as const,
     tone: "mist" as const,
     highlights: [
@@ -138,6 +138,30 @@ export type Treatment = (typeof treatments)[number];
 
 export function getTreatment(slug: string) {
   return treatments.find((item) => item.slug === slug);
+}
+
+/** Shared TreatmentCard props so listing, showcase, and detail rails stay in sync. */
+export function getTreatmentCardProps(
+  item: Treatment,
+  options?: { hoverBanner?: boolean },
+) {
+  const illustration =
+    "illustration" in item.card
+      ? item.card.illustration
+      : options?.hoverBanner
+        ? "/illustrations/treatment-ivf.svg"
+        : undefined;
+  const image = "image" in item.card && !options?.hoverBanner ? item.card.image : undefined;
+
+  return {
+    href: `/treatments/${item.slug}`,
+    name: item.shortName,
+    summary: item.summary,
+    illustration,
+    image,
+    hoverImage: options?.hoverBanner ? item.image : undefined,
+    tone: item.card.tone,
+  };
 }
 
 export const treatmentCategories = [

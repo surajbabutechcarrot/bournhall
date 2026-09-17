@@ -1,6 +1,6 @@
 import { TestimonialCard } from "@/components/cards/TestimonialCard";
 import { Container } from "@/components/ui/Container";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { testimonials } from "@/content/site-content";
@@ -36,10 +36,7 @@ export default function PatientStoriesPage() {
           </div>
         </Container>
       </Section>
-      <CtaBanner
-        title="Begin your own journey"
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
-      />
+      <HomeCta />
     </>
   );
 }

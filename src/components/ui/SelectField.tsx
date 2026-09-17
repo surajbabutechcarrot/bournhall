@@ -127,7 +127,7 @@ export function SelectField({
           "flex h-[52px] w-full items-center justify-between gap-3 rounded-xl border bg-white px-4 text-left text-[15px] leading-5 outline-none transition-all",
           open
             ? "border-brand-400 shadow-[0_0_0_3px_rgba(125,21,81,0.08)]"
-            : "border-[#e6dde3] hover:border-[#d4c6ce]",
+            : "border-[#e6dde3] hover:border-[#d4c6ce] focus:border-brand-400 focus:shadow-[0_0_0_3px_rgba(125,21,81,0.08)] focus-visible:border-brand-400 focus-visible:shadow-[0_0_0_3px_rgba(125,21,81,0.08)] focus-visible:outline-none",
           selected ? "text-ink-900" : "text-[#9a9096]",
         )}
       >
@@ -150,7 +150,8 @@ export function SelectField({
           tabIndex={-1}
           aria-labelledby={`${listId}-label`}
           onKeyDown={onListKeyDown}
-          className="absolute top-[calc(100%+0.4rem)] right-0 left-0 z-30 max-h-56 overflow-auto rounded-2xl border border-[#efe6eb] bg-white p-1.5 shadow-[0_18px_40px_-20px_rgba(36,26,40,0.35)] outline-none"
+          data-lenis-prevent
+          className="absolute top-[calc(100%+0.4rem)] right-0 left-0 z-30 max-h-56 overflow-auto overscroll-contain rounded-2xl border border-[#efe6eb] bg-white p-1.5 shadow-[0_18px_40px_-20px_rgba(36,26,40,0.35)] outline-none"
         >
           {options.map((option, index) => {
             const isSelected = option.value === value;

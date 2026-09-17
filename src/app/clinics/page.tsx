@@ -1,6 +1,6 @@
 import { LocationCard } from "@/components/cards/LocationCard";
 import { Container } from "@/components/ui/Container";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { locations } from "@/content/locations";
@@ -44,11 +44,7 @@ export default function ClinicsPage() {
           </div>
         </Container>
       </Section>
-      <CtaBanner
-        title="Prefer to talk first?"
-        description="Call 800-IVF (483) or request a callback."
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
-      />
+      <HomeCta />
     </>
   );
 }

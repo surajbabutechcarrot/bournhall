@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { DetailFact, DetailSection } from "@/components/ui/DetailSection";
 import { PageHero } from "@/components/ui/PageHero";
 import { getLocation, locations } from "@/content/locations";
@@ -53,11 +53,7 @@ export default async function ClinicPage({ params }: Props) {
         <DetailFact label="Hours" value={location.hours} />
         <DetailFact label="Phone" value={location.phone} />
       </DetailSection>
-      <CtaBanner
-        title="Visit us or start online"
-        description="A first consultation can be in clinic or virtual."
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
-      />
+      <HomeCta />
     </>
   );
 }

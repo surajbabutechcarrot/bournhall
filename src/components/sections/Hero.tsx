@@ -147,8 +147,20 @@ export function Hero() {
       </div>
 
       <Container className="relative z-10 lg:h-full">
-        <div className="relative lg:flex lg:h-full lg:items-center">
-          <div className="hero-copy max-w-[540px] pt-[calc(var(--header-h)+2rem)] pb-10 md:pb-12 lg:pt-[calc(var(--header-h)+1rem)] lg:pb-0">
+        <div className="relative flex flex-col lg:flex-row lg:h-full lg:items-center">
+          {/* Mobile + tablet: couple at the top (order-1) */}
+          <div className="order-1 relative z-0 w-full pt-[calc(var(--header-h)+1rem)] sm:pt-[calc(var(--header-h)+1.5rem)] lg:hidden">
+            <HeroCouple
+              className="mx-auto aspect-[5/4] w-full max-w-[480px] sm:aspect-[4/3] sm:max-w-[620px] md:max-w-[720px]"
+              sizes="(max-width: 1023px) 100vw, 0px"
+              priority
+              womanRef={mobileWomanRef}
+              manRef={mobileManRef}
+            />
+          </div>
+
+          {/* Text content (order-2 on mobile/tablet, order-1/default on desktop) */}
+          <div className="hero-copy order-2 max-w-[540px] pt-4 pb-12 sm:pt-6 sm:pb-16 lg:order-none lg:pt-[calc(var(--header-h)+1rem)] lg:pb-0">
             <h1
               data-reveal-hero
               className="hero-display text-[2.5rem] leading-[1.12] font-medium text-ink-950 sm:text-5xl md:text-[3.25rem] md:leading-[1.1] lg:text-[clamp(2.75rem,4.2vw,3.75rem)] lg:leading-[1.12]"
@@ -195,7 +207,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* left:0 here = content column start (after container gutter), matches logo */}
+          {/* Desktop scroll indicator */}
           <a
             href="#support-journey"
             onClick={(e) => {
@@ -210,7 +222,7 @@ export function Hero() {
             }}
             aria-label="Scroll down to explore"
             data-reveal-hero
-            className="group absolute bottom-3 left-0 z-20 flex cursor-pointer flex-col items-center gap-1 transition-opacity duration-300 hover:opacity-100 sm:bottom-5 lg:bottom-7"
+            className="group absolute bottom-3 left-0 z-20 hidden cursor-pointer flex-col items-center gap-1 transition-opacity duration-300 hover:opacity-100 lg:flex lg:bottom-7"
           >
             <div className="relative flex h-[38px] w-[22px] justify-center rounded-full border-[1.75px] border-brand-500/40 bg-white/20 p-1 shadow-xs backdrop-blur-[2px] transition-colors duration-200 group-hover:border-brand-500/80 group-hover:bg-white/50">
               <span className="h-2 w-1 animate-scroll-wheel rounded-full bg-brand-500" />
@@ -236,17 +248,6 @@ export function Hero() {
           </a>
         </div>
       </Container>
-
-      {/* Mobile + tablet: couple below content */}
-      <div className="relative z-0 lg:hidden">
-        <HeroCouple
-          className="mx-auto aspect-[5/4] w-full max-w-[640px] sm:aspect-[4/3] sm:max-w-[760px] md:max-w-[860px]"
-          sizes="(max-width: 1023px) 100vw, 0px"
-          priority
-          womanRef={mobileWomanRef}
-          manRef={mobileManRef}
-        />
-      </div>
     </section>
   );
 }

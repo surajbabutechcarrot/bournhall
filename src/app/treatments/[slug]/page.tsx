@@ -1,11 +1,11 @@
-import { notFound } from "next/navigation";
-import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
+import { TreatmentsShowcase } from "@/components/sections/TreatmentsShowcase";
+import { TreatmentPageBody } from "@/components/treatments/TreatmentPageBody";
 import { PageHero } from "@/components/ui/PageHero";
-import { Section } from "@/components/ui/Section";
-import { getTreatment, treatments } from "@/content/treatments";
+import { getTreatmentPage } from "@/content/treatment-pages";
+import { treatments } from "@/content/treatments";
 import { buildMetadata } from "@/lib/seo";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -17,61 +17,40 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const treatment = getTreatment(slug);
-  if (!treatment) return {};
+  const page = getTreatmentPage(slug);
+  if (!page) return {};
   return buildMetadata({
-    title: treatment.name,
-    description: treatment.description,
-    path: `/treatments/${treatment.slug}`,
+    title: page.title,
+    description: page.intro,
+    path: `/treatments/${page.slug}`,
   });
 }
 
 export default async function TreatmentPage({ params }: Props) {
   const { slug } = await params;
-  const treatment = getTreatment(slug);
-  if (!treatment) notFound();
+  const page = getTreatmentPage(slug);
+  if (!page) notFound();
 
   return (
     <>
       <PageHero
-        eyebrow={treatment.category}
-        title={treatment.name}
-        description={treatment.summary}
-        crumbs={[
-          { label: "Home", href: "/" },
-          { label: "Treatments", href: "/treatments" },
-          { label: treatment.name },
-        ]}
-        image={treatment.image}
-        actions={
-          <>
-            <Button href="/book-appointment" size="lg">
-              Book Consultation
-            </Button>
-            <Button href="/contact" variant="outline" size="lg">
-              Talk to us
-            </Button>
-          </>
-        }
+        title={page.title}
+        subtitle={page.subtitle}
+        description={page.intro}
+        crumbs={page.crumbs}
+        image={page.image}
+        titleClassName="font-medium text-ink-950 sm:text-[2.75rem] lg:text-[clamp(2.75rem,3.2vw,3.25rem)]"
+        imageClassName="aspect-square max-h-[480px] rounded-[28px] lg:max-h-none"
+        className="pb-12 sm:pb-16"
       />
-      <Section>
-        <Container size="narrow">
-          <h2 className="text-2xl font-semibold text-ink-800">About this treatment</h2>
-          <p className="mt-4 text-[15px] leading-7 text-ink-500">{treatment.description}</p>
-          <ul className="mt-8 space-y-3">
-            {treatment.highlights.map((item) => (
-              <li key={item} className="rounded-2xl bg-brand-50 px-5 py-4 text-sm text-ink-700">
-                {item}
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-      <CtaBanner
-        title={`Start ${treatment.shortName} at Bourn Hall`}
-        description="We will help you understand whether this pathway is right for you."
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
+      <TreatmentPageBody page={page} />
+      <TreatmentsShowcase
+        title="Other Fertility Treatments"
+        description={null}
+        excludeSlug={page.slug}
+        pin={false}
       />
+      <HomeCta />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { DetailSection } from "@/components/ui/DetailSection";
 import { PageHero } from "@/components/ui/PageHero";
 import { resources } from "@/content/site-content";
@@ -53,10 +53,7 @@ export default async function ResourcePage({ params }: Props) {
           and the questions that matter most to you. We will take the time to answer them.
         </p>
       </DetailSection>
-      <CtaBanner
-        title="Talk this through with a specialist"
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
-      />
+      <HomeCta />
     </>
   );
 }

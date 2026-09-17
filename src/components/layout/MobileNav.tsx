@@ -119,6 +119,7 @@ export function MobileNav({ open: controlledOpen, onOpenChange }: MobileNavProps
               <div className="flex min-h-0 flex-1 flex-col bg-[linear-gradient(180deg,#ffffff_0%,#faf7fc_100%)]">
                 <nav
                   aria-label="Mobile"
+                  data-lenis-prevent
                   className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 pt-2 pb-6"
                 >
                   <ul className="divide-y divide-ink-200/80">

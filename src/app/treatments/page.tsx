@@ -1,9 +1,6 @@
-import { TreatmentCard } from "@/components/cards/TreatmentCard";
-import { CtaBanner } from "@/components/ui/CtaBanner";
-import { Container } from "@/components/ui/Container";
+import { HomeCta } from "@/components/sections/HomeCta";
+import { TreatmentsShowcase } from "@/components/sections/TreatmentsShowcase";
 import { PageHero } from "@/components/ui/PageHero";
-import { Section } from "@/components/ui/Section";
-import { treatments } from "@/content/treatments";
 import { images } from "@/lib/images";
 import { buildMetadata } from "@/lib/seo";
 
@@ -27,28 +24,8 @@ export default function TreatmentsPage() {
         ]}
         image={images.lab}
       />
-      <Section>
-        <Container>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {treatments.map((item) => (
-              <TreatmentCard
-                key={item.slug}
-                href={`/treatments/${item.slug}`}
-                name={item.name}
-                summary={item.summary}
-                illustration={"illustration" in item.card ? item.card.illustration : undefined}
-                image={"image" in item.card ? item.card.image : item.image}
-                tone={item.tone}
-              />
-            ))}
-          </div>
-        </Container>
-      </Section>
-      <CtaBanner
-        title="Not sure which treatment is right?"
-        description="A specialist consultation is the clearest first step."
-        primary={{ href: "/book-appointment", label: "Book Consultation" }}
-      />
+      <TreatmentsShowcase pin={false} />
+      <HomeCta />
     </>
   );
 }

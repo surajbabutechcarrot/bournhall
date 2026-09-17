@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,14 +9,39 @@ import { useLenis } from "lenis/react";
 import { TreatmentCard } from "@/components/cards/TreatmentCard";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
-import { treatments } from "@/content/treatments";
+import { getTreatmentCardProps, treatments } from "@/content/treatments";
 import { cn } from "@/lib/cn";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const DOT_COUNT = 3;
 
-export function TreatmentsShowcase() {
+export const treatmentCardClassName =
+  "w-[min(380px,82vw)] shrink-0 sm:w-[min(400px,46vw)] lg:w-[min(400px,32vw)] xl:w-[416px]";
+
+type TreatmentsShowcaseProps = {
+  title?: ReactNode;
+  description?: ReactNode | null;
+  excludeSlug?: string;
+  /** Homepage scroll-pin. Inner pages keep the same rail with free horizontal scroll. */
+  pin?: boolean;
+  className?: string;
+};
+
+/**
+ * Single treatments rail from the homepage — reuse on listing and detail pages.
+ */
+export function TreatmentsShowcase({
+  title = (
+    <>
+      Fertility Treatments at <span className="text-brand-500">Bourn Hall</span>
+    </>
+  ),
+  description = "Explore personalised fertility treatments supported by experienced specialists and advanced reproductive care.",
+  excludeSlug,
+  pin = true,
+  className,
+}: TreatmentsShowcaseProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -24,12 +49,16 @@ export function TreatmentsShowcase() {
   const [pinned, setPinned] = useState(false);
   const lenis = useLenis();
 
+  const items = treatments.filter((item) => item.slug !== excludeSlug);
+
   const syncDots = useCallback((progress: number) => {
     setActive(Math.min(DOT_COUNT - 1, Math.round(progress * (DOT_COUNT - 1))));
   }, []);
 
   useGSAP(
     () => {
+      if (!pin) return;
+
       const section = sectionRef.current;
       const viewport = viewportRef.current;
       const track = trackRef.current;
@@ -67,7 +96,6 @@ export function TreatmentsShowcase() {
 
           applyPinnedHeight();
 
-          // Pin flush under the fixed header; section height = remaining viewport so flex can center.
           const tween = gsap.to(track, {
             x: () => -getDistance(),
             ease: "none",
@@ -103,10 +131,11 @@ export function TreatmentsShowcase() {
 
       return () => mm.revert();
     },
-    { dependencies: [syncDots], revertOnUpdate: true },
+    { dependencies: [syncDots, pin, excludeSlug], revertOnUpdate: true },
   );
 
   useEffect(() => {
+    if (!pin) return;
     const refresh = () => ScrollTrigger.refresh();
     refresh();
     window.addEventListener("load", refresh);
@@ -119,23 +148,25 @@ export function TreatmentsShowcase() {
       window.visualViewport?.removeEventListener("resize", refresh);
       window.visualViewport?.removeEventListener("scroll", refresh);
     };
-  }, []);
+  }, [pin]);
 
   const goToDot = (index: number) => {
     const section = sectionRef.current;
     const viewport = viewportRef.current;
     if (!section || !viewport) return;
 
-    const trigger = ScrollTrigger.getAll().find((item) => item.trigger === section);
-    if (trigger && window.matchMedia("(min-width: 1024px)").matches) {
-      const progress = DOT_COUNT <= 1 ? 0 : index / (DOT_COUNT - 1);
-      const target = trigger.start + (trigger.end - trigger.start) * progress;
-      if (lenis) {
-        lenis.scrollTo(target, { duration: 1 });
-      } else {
-        window.scrollTo({ top: target, behavior: "smooth" });
+    if (pin) {
+      const trigger = ScrollTrigger.getAll().find((item) => item.trigger === section);
+      if (trigger && window.matchMedia("(min-width: 1024px)").matches) {
+        const progress = DOT_COUNT <= 1 ? 0 : index / (DOT_COUNT - 1);
+        const target = trigger.start + (trigger.end - trigger.start) * progress;
+        if (lenis) {
+          lenis.scrollTo(target, { duration: 1 });
+        } else {
+          window.scrollTo({ top: target, behavior: "smooth" });
+        }
+        return;
       }
-      return;
     }
 
     const maxScroll = viewport.scrollWidth - viewport.clientWidth;
@@ -152,6 +183,7 @@ export function TreatmentsShowcase() {
       className={cn(
         "flex w-full flex-col justify-center bg-white py-16 lg:py-6 xl:py-8 min-[1512px]:py-12",
         pinned && "z-20",
+        className,
       )}
     >
       <div className="w-full">
@@ -160,12 +192,13 @@ export function TreatmentsShowcase() {
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
               <div className="min-w-0 flex-1">
                 <h2 className="text-3xl font-medium tracking-tight text-ink-950 sm:text-4xl lg:text-[clamp(1.85rem,2.6vw,2.65rem)] lg:leading-[1.2] min-[1512px]:text-[46px] min-[1512px]:leading-[56px]">
-                  Fertility Treatments at <span className="text-brand-500">Bourn Hall</span>
+                  {title}
                 </h2>
-                <p className="mt-3 max-w-[580px] text-base leading-relaxed text-brand-500 sm:mt-4 sm:text-[17px]">
-                  Explore personalised fertility treatments supported by experienced specialists and
-                  advanced reproductive care.
-                </p>
+                {description ? (
+                  <p className="mt-3 max-w-[580px] text-base leading-relaxed text-brand-500 sm:mt-4 sm:text-[17px]">
+                    {description}
+                  </p>
+                ) : null}
               </div>
               <Button
                 href="/treatments"
@@ -183,9 +216,12 @@ export function TreatmentsShowcase() {
         <div className="treatments-rail-inset">
           <div
             ref={viewportRef}
-            className="no-scrollbar overflow-x-auto overflow-y-hidden lg:overflow-x-hidden"
+            className={cn(
+              "no-scrollbar overflow-x-auto overflow-y-hidden",
+              pin && "lg:overflow-x-hidden",
+            )}
             onScroll={(event) => {
-              if (window.matchMedia("(min-width: 1024px)").matches) return;
+              if (pin && window.matchMedia("(min-width: 1024px)").matches) return;
               const rail = event.currentTarget;
               const max = rail.scrollWidth - rail.clientWidth;
               if (max <= 0) return;
@@ -198,16 +234,11 @@ export function TreatmentsShowcase() {
               aria-label="Fertility treatments"
               className="flex w-max gap-6 pb-2 pr-5 will-change-transform sm:gap-8 sm:pr-8"
             >
-              {treatments.map((item) => (
+              {items.map((item) => (
                 <TreatmentCard
                   key={item.slug}
-                  href={`/treatments/${item.slug}`}
-                  name={item.shortName}
-                  summary={item.summary}
-                  illustration={"illustration" in item.card ? item.card.illustration : undefined}
-                  image={"image" in item.card ? item.card.image : undefined}
-                  tone={item.card.tone}
-                  className="w-[min(380px,82vw)] shrink-0 sm:w-[min(400px,46vw)] lg:w-[min(400px,32vw)] xl:w-[416px]"
+                  {...getTreatmentCardProps(item)}
+                  className={treatmentCardClassName}
                 />
               ))}
             </div>

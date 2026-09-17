@@ -1,3 +1,5 @@
+import { images } from "@/lib/images";
+
 export const site = {
   name: "Bourn Hall",
   legalName: "Bourn Hall Fertility Clinic UAE",
@@ -19,7 +21,14 @@ export const navItems = [
     mega: true,
   },
   { label: "Our Specialists", href: "/doctors" },
-  { label: "Our Success Rates", href: "/resources/success-rates" },
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      { label: "About Us", href: "/about" },
+      { label: "Our Success Rates", href: "/resources/success-rates" },
+    ],
+  },
   {
     label: "Accreditation",
     href: "/about#accreditation",
@@ -70,10 +79,7 @@ export const treatmentsMegaMenu = {
   featured: {
     href: "/treatments/egg-freezing",
     label: "Egg Freezing",
-    image: {
-      src: "/images/mega-egg-freezing.png",
-      alt: "Egg vitrification process in the embryology laboratory",
-    },
+    image: images.preservation,
   },
 } as const;
 

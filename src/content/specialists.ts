@@ -59,6 +59,18 @@ export const specialists = [
 
 export type Specialist = (typeof specialists)[number];
 
+export const doctorClinics = ["All", "Dubai", "Abu Dhabi", "Al Ain"] as const;
+export type DoctorClinicFilter = (typeof doctorClinics)[number];
+
+export const doctorsPageContent = {
+  title: "Doctors",
+  description:
+    "Our expert team at Bourn Hall are delighted to support you with your patient referrals. Please submit your patient referrals to our team members below.",
+  primaryCta: { href: "/book-appointment", label: "Book a Consultation" },
+  secondaryCta: { href: "/treatments", label: "Explore Fertility Treatments" },
+  filterLabel: "Show me doctors from:",
+} as const;
+
 export function getSpecialist(slug: string) {
   return specialists.find((item) => item.slug === slug);
 }

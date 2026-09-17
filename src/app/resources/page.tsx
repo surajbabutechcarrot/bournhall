@@ -1,6 +1,6 @@
 import { InsightCard } from "@/components/cards/InsightCard";
 import { Container } from "@/components/ui/Container";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { resources } from "@/content/site-content";
@@ -42,10 +42,7 @@ export default function ResourcesPage() {
           </div>
         </Container>
       </Section>
-      <CtaBanner
-        title="Questions after reading?"
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
-      />
+      <HomeCta />
     </>
   );
 }

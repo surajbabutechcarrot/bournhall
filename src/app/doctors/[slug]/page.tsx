@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { DetailFact, DetailSection } from "@/components/ui/DetailSection";
 import { PageHero } from "@/components/ui/PageHero";
 import { getSpecialist, specialists } from "@/content/specialists";
@@ -53,10 +53,7 @@ export default async function DoctorPage({ params }: Props) {
         <DetailFact label="Specialty" value={doctor.specialty} />
         <DetailFact label="Clinic" value={doctor.clinic} />
       </DetailSection>
-      <CtaBanner
-        title="Ready to meet your specialist?"
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
-      />
+      <HomeCta />
     </>
   );
 }

@@ -104,8 +104,8 @@ export function AboutLegacy() {
               className="aspect-[4/3] rounded-[28px]"
             />
             <div className="absolute right-4 bottom-4 max-w-[240px] rounded-2xl bg-white p-4 shadow-lift sm:right-6 sm:bottom-6 sm:max-w-[260px] sm:p-5">
-              <p className="text-sm font-semibold text-ink-950">{aboutLegacy.card.title}</p>
-              <p className="mt-2 text-xs leading-5 text-ink-500 sm:text-[13px] sm:leading-5">
+              <p className="text-2xl font-semibold text-ink-950">{aboutLegacy.card.title}</p>
+              <p className="mt-2 text-base leading-5 text-ink-500">
                 {aboutLegacy.card.body}
               </p>
             </div>

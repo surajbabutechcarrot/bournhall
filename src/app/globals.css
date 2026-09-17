@@ -215,6 +215,14 @@ body {
   outline-offset: 3px;
 }
 
+input:not([type="checkbox"]):not([type="radio"]):focus,
+input:not([type="checkbox"]):not([type="radio"]):focus-visible,
+textarea:focus,
+textarea:focus-visible {
+  outline: none !important;
+  box-shadow: none;
+}
+
 .skip-link {
   position: absolute;
   left: 1rem;
@@ -268,23 +276,34 @@ details summary::marker {
   background-image: linear-gradient(180deg, #f2edf8 0%, #faecf1 100%);
 }
 
-/* Exact Figma export: radial on Rectangle 3 (1512×1180) */
+/*
+  Home CTA → footer bloom (Figma soft U-bowl).
+  Solid plum base matches footer; white ellipse from the top creates the curve.
+*/
 @utility surface-cta {
-  background-color: #ffffff;
+  background-color: #7d1551;
   background-image: radial-gradient(
-    230.92% 186.48% at 50% -86.48%,
-    rgba(125, 21, 81, 0) 68.05%,
-    #7d1551 82.26%
+    145% 118% at 50% -12%,
+    #ffffff 0%,
+    #ffffff 46%,
+    #fff8fb 56%,
+    rgba(250, 229, 236, 0.72) 64%,
+    rgba(177, 72, 126, 0.38) 74%,
+    rgba(125, 21, 81, 0) 88%
   );
 }
 
-/* Short viewports: % radii flatten — switch to fixed ellipse so the bloom holds shape. */
+/* Keep the bowl shape on short desktop viewports ( %-radii flatten on short sections ). */
 @media (min-width: 1024px) and (max-height: 900px) {
   .surface-cta {
     background-image: radial-gradient(
-      1100px 820px at 50% -280px,
-      rgba(125, 21, 81, 0) 58%,
-      #7d1551 78%
+      1500px 780px at 50% -140px,
+      #ffffff 0%,
+      #ffffff 44%,
+      #fff8fb 54%,
+      rgba(250, 229, 236, 0.7) 62%,
+      rgba(177, 72, 126, 0.35) 72%,
+      rgba(125, 21, 81, 0) 88%
     );
   }
 }
@@ -292,9 +311,13 @@ details summary::marker {
 @media (min-width: 1024px) and (max-height: 760px) {
   .surface-cta {
     background-image: radial-gradient(
-      960px 680px at 50% -220px,
-      rgba(125, 21, 81, 0) 55%,
-      #7d1551 76%
+      1280px 620px at 50% -100px,
+      #ffffff 0%,
+      #ffffff 42%,
+      #fff8fb 52%,
+      rgba(250, 229, 236, 0.65) 60%,
+      rgba(177, 72, 126, 0.32) 70%,
+      rgba(125, 21, 81, 0) 86%
     );
   }
 }
@@ -348,6 +371,22 @@ details summary::marker {
   height: 421px;
 }
 
+.doctor-card-listing-height {
+  height: 480px;
+}
+
+@media (min-width: 640px) {
+  .doctor-card-listing-height {
+    height: 500px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .doctor-card-listing-height {
+    height: 520px;
+  }
+}
+
 .insight-card-height {
   height: 465px;
 }
@@ -360,6 +399,15 @@ details summary::marker {
   /* Keep doctor cards taller so faces stay above the info panel. */
   .doctor-card-height {
     height: 400px;
+  }
+
+  .doctor-card-listing-height {
+    height: 480px;
+  }
+
+  .doctor-card-listing-height .doctor-card-info {
+    gap: 0.5rem;
+    padding: 0.875rem 1rem;
   }
 
   .insight-card-height {
@@ -423,6 +471,15 @@ details summary::marker {
 
   .doctor-card-height {
     height: 360px;
+  }
+
+  .doctor-card-listing-height {
+    height: 440px;
+  }
+
+  .doctor-card-listing-height .doctor-card-info {
+    gap: 0.4rem;
+    padding: 0.75rem 0.875rem;
   }
 
   .insight-card-height {
@@ -720,6 +777,57 @@ details summary::marker {
 /* Treatments mega-menu featured tile — keep display/size out of long Tailwind strings. */
 .mega-featured {
   display: none;
+}
+
+.mega-featured-shot {
+  opacity: 0;
+  transform: scale(1.05);
+  transition:
+    opacity 0.45s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.mega-featured-shot[data-active="true"] {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 0;
+}
+
+.mega-featured-shot[data-active="false"] {
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes mega-featured-label-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mega-featured-label {
+  animation: mega-featured-label-in 0.35s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mega-featured-shot {
+    transition: opacity 0.2s ease;
+    transform: none;
+  }
+
+  .mega-featured-shot[data-active="true"],
+  .mega-featured-shot[data-active="false"] {
+    transform: none;
+  }
+
+  .mega-featured-label {
+    animation: none;
+  }
 }
 
 @media (min-width: 1024px) {

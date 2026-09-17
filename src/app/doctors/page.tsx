@@ -1,16 +1,17 @@
-import { DoctorCard } from "@/components/cards/DoctorCard";
+import { ArrowRight } from "lucide-react";
+import { DoctorsDirectory } from "@/components/sections/DoctorsDirectory";
 import { Container } from "@/components/ui/Container";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
-import { specialists } from "@/content/specialists";
+import { Button } from "@/components/ui/Button";
+import { doctorsPageContent, specialists } from "@/content/specialists";
 import { images } from "@/lib/images";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Our Specialists",
-  description:
-    "Meet the Bourn Hall fertility specialists across Dubai, Abu Dhabi and Al Ain.",
+  title: doctorsPageContent.title,
+  description: doctorsPageContent.description,
   path: "/doctors",
 });
 
@@ -18,35 +19,35 @@ export default function DoctorsPage() {
   return (
     <>
       <PageHero
-        eyebrow="Our team"
-        title="Meet our specialists"
-        description="Internationally trained consultants in reproductive medicine, embryology and urology — working as one team."
-        crumbs={[
-          { label: "Home", href: "/" },
-          { label: "Specialists" },
-        ]}
-        image={images.consultation}
+        title={doctorsPageContent.title}
+        description={doctorsPageContent.description}
+        titleClassName="font-medium text-[2.5rem] sm:text-[3.25rem] lg:text-[3.5rem]"
+        image={images.insightConsultation}
+        imageClassName="aspect-[16/11] lg:aspect-[4/3]"
+        imageMediaClassName="object-[center_20%]"
+        actions={
+          <>
+            <Button href={doctorsPageContent.primaryCta.href} size="md">
+              {doctorsPageContent.primaryCta.label}
+            </Button>
+            <Button
+              href={doctorsPageContent.secondaryCta.href}
+              variant="ghost"
+              size="md"
+              className="px-2 text-ink-900 hover:bg-transparent hover:text-brand-500"
+              icon={<ArrowRight aria-hidden className="size-4" strokeWidth={1.6} />}
+            >
+              {doctorsPageContent.secondaryCta.label}
+            </Button>
+          </>
+        }
       />
-      <Section>
+      <Section size="md">
         <Container>
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-3">
-            {specialists.map((doctor) => (
-              <DoctorCard
-                key={doctor.slug}
-                href={`/doctors/${doctor.slug}`}
-                name={doctor.name}
-                role={doctor.role}
-                clinic={doctor.clinic}
-                image={doctor.image}
-              />
-            ))}
-          </div>
+          <DoctorsDirectory doctors={specialists} />
         </Container>
       </Section>
-      <CtaBanner
-        title="Request a specialist consultation"
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
-      />
+      <HomeCta />
     </>
   );
 }

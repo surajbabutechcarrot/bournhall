@@ -1,6 +1,6 @@
 import { Accordion } from "@/components/ui/Accordion";
 import { Container } from "@/components/ui/Container";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -35,11 +35,7 @@ export default function FaqPage() {
         </Container>
       </Section>
       <JsonLd data={faqJsonLd(faqs)} />
-      <CtaBanner
-        title="Still have a question?"
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
-        secondary={{ href: "/contact", label: "Contact us" }}
-      />
+      <HomeCta />
     </>
   );
 }

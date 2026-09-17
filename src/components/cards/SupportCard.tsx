@@ -9,13 +9,22 @@ type SupportCardProps = {
   number: number;
   image: { src: string; alt: string };
   className?: string;
+  /** Skip GSAP scroll-media parallax (pin / emerge animations). */
+  noParallax?: boolean;
 };
 
 /**
  * Card artwork from Figma already includes the rounded silhouette and the
  * bottom-right notch the label sits in — so we only overlay number + title.
  */
-export function SupportCard({ href, title, number, image, className }: SupportCardProps) {
+export function SupportCard({
+  href,
+  title,
+  number,
+  image,
+  className,
+  noParallax = false,
+}: SupportCardProps) {
   return (
     <Link
       href={href}
@@ -29,7 +38,9 @@ export function SupportCard({ href, title, number, image, className }: SupportCa
         alt={image.alt}
         fill
         sizes="(min-width: 1024px) 431px, 100vw"
-        data-scroll-media
+        {...(noParallax
+          ? { "data-no-parallax": true }
+          : { "data-scroll-media": true })}
         className="object-contain object-left-top"
       />
 

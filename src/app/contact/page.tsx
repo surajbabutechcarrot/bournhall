@@ -2,7 +2,7 @@ import { AppointmentForm } from "@/components/forms/AppointmentForm";
 import { LocationCard } from "@/components/cards/LocationCard";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { locations } from "@/content/locations";
@@ -54,11 +54,7 @@ export default function ContactPage() {
           </div>
         </Container>
       </Section>
-      <CtaBanner
-        title="Prefer to book directly?"
-        description="Choose a clinic and time that works for you."
-        primary={{ href: "/book-appointment", label: "Book Appointment" }}
-      />
+      <HomeCta />
     </>
   );
 }

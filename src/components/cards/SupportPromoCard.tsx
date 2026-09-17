@@ -30,14 +30,16 @@ export function SupportPromoCard({ body, cta, className }: SupportPromoCardProps
           {body}
         </p>
 
-        <Button
-          href={cta.href}
-          size="lg"
-          className="w-full sm:w-auto"
-          iconBefore={<CalendarDays aria-hidden className="size-5" strokeWidth={1.6} />}
-        >
-          {cta.label}
-        </Button>
+        <span data-support-promo-cta className="inline-flex w-full justify-center sm:w-auto">
+          <Button
+            href={cta.href}
+            size="lg"
+            className="w-full sm:w-auto"
+            iconBefore={<CalendarDays aria-hidden className="size-5" strokeWidth={1.6} />}
+          >
+            {cta.label}
+          </Button>
+        </span>
       </div>
     </article>
   );

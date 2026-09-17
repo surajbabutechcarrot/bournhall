@@ -5,7 +5,7 @@ import {
   AboutLegacy,
 } from "@/components/sections/AboutSections";
 import { AboutHistory } from "@/components/sections/AboutHistory";
-import { CtaBanner } from "@/components/ui/CtaBanner";
+import { HomeCta } from "@/components/sections/HomeCta";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -23,11 +23,7 @@ export default function AboutPage() {
       <AboutDifferent />
       <AboutHistory />
       <AboutAccreditation />
-      <CtaBanner
-        title="Ready to Take the Next Step?"
-        description="Meet a specialist and leave with a clear, personalised next step for your fertility journey."
-        primary={{ href: "/book-appointment", label: "Book a Consultation" }}
-      />
+      <HomeCta />
     </>
   );
 }
