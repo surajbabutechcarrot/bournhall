@@ -1,7 +1,7 @@
 import { AppointmentForm } from "@/components/forms/AppointmentForm";
 import { PreferTalkCard } from "@/components/sections/PreferTalkCard";
-import { HomeCta } from "@/components/sections/HomeCta";
 import { Container } from "@/components/ui/Container";
+import { CtaBanner } from "@/components/ui/CtaBanner";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
@@ -45,7 +45,12 @@ export default function BookAppointmentPage() {
         </Container>
       </section>
 
-      <HomeCta />
+      <CtaBanner
+        title="Questions before you book?"
+        description="Our patient care team can help you choose a clinic and specialist."
+        primary={{ href: "/contact", label: "Contact us" }}
+        secondary={{ href: "/faq", label: "View FAQs" }}
+      />
     </>
   );
 }

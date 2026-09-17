@@ -71,7 +71,6 @@ export default async function TreatmentPage({ params }: Props) {
         title={`Start ${treatment.shortName} at Bourn Hall`}
         description="We will help you understand whether this pathway is right for you."
         primary={{ href: "/book-appointment", label: "Book Appointment" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

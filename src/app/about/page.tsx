@@ -27,7 +27,6 @@ export default function AboutPage() {
         title="Ready to Take the Next Step?"
         description="Meet a specialist and leave with a clear, personalised next step for your fertility journey."
         primary={{ href: "/book-appointment", label: "Book a Consultation" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

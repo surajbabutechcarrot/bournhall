@@ -1,9 +1,9 @@
-import Image from "next/image";
 import { ArrowRight, CalendarDays } from "lucide-react";
 import { ArrowLink } from "@/components/ui/ArrowLink";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { PageHero } from "@/components/ui/PageHero";
+import { SiteImage } from "@/components/ui/SiteImage";
 import {
   aboutAccreditation,
   aboutDifferent,
@@ -97,15 +97,12 @@ export function AboutLegacy() {
           </div>
 
           <div data-reveal className="relative">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-[28px]">
-              <Image
-                src={aboutLegacy.image.src}
-                alt={aboutLegacy.image.alt}
-                fill
-                sizes="(min-width: 1024px) 560px, 100vw"
-                className="object-cover"
-              />
-            </div>
+            <SiteImage
+              src={aboutLegacy.image.src}
+              alt={aboutLegacy.image.alt}
+              sizes="(min-width: 1024px) 560px, 100vw"
+              className="aspect-[4/3] rounded-[28px]"
+            />
             <div className="absolute right-4 bottom-4 max-w-[240px] rounded-2xl bg-white p-4 shadow-lift sm:right-6 sm:bottom-6 sm:max-w-[260px] sm:p-5">
               <p className="text-sm font-semibold text-ink-950">{aboutLegacy.card.title}</p>
               <p className="mt-2 text-xs leading-5 text-ink-500 sm:text-[13px] sm:leading-5">
@@ -148,15 +145,12 @@ export function AboutDifferent() {
             </div>
 
             <div className="lg:border-x lg:border-ink-200 lg:px-6 xl:px-8">
-              <div className="relative mx-auto aspect-[4/5] w-full max-w-[280px] overflow-hidden rounded-[24px] lg:mx-0 lg:h-full lg:min-h-[420px] lg:max-w-none lg:aspect-auto">
-                <Image
-                  src={aboutDifferent.image.src}
-                  alt={aboutDifferent.image.alt}
-                  fill
-                  sizes="300px"
-                  className="object-cover"
-                />
-              </div>
+              <SiteImage
+                src={aboutDifferent.image.src}
+                alt={aboutDifferent.image.alt}
+                sizes="300px"
+                className="mx-auto aspect-[4/5] w-full max-w-[280px] rounded-[24px] lg:mx-0 lg:h-full lg:min-h-[420px] lg:max-w-none lg:aspect-auto"
+              />
             </div>
 
             <div className="lg:pl-8 xl:pl-10">

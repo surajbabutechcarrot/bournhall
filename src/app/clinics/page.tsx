@@ -48,7 +48,6 @@ export default function ClinicsPage() {
         title="Prefer to talk first?"
         description="Call 800-IVF (483) or request a callback."
         primary={{ href: "/book-appointment", label: "Book Appointment" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

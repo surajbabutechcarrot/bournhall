@@ -39,7 +39,6 @@ export default function PatientStoriesPage() {
       <CtaBanner
         title="Begin your own journey"
         primary={{ href: "/book-appointment", label: "Book Appointment" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

@@ -1,6 +1,8 @@
 import { AppointmentForm } from "@/components/forms/AppointmentForm";
 import { LocationCard } from "@/components/cards/LocationCard";
+import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
+import { CtaBanner } from "@/components/ui/CtaBanner";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { locations } from "@/content/locations";
@@ -30,13 +32,13 @@ export default function ContactPage() {
       />
       <Section>
         <Container className="grid items-start gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="rounded-[1.75rem] bg-white p-6 shadow-lift sm:p-8">
+          <Card className="sm:p-8">
             <h2 className="text-xl font-semibold text-ink-800">Request a callback</h2>
             <p className="mt-2 mb-6 text-sm text-ink-500">
               Tell us a little about you and we will arrange a convenient time.
             </p>
             <AppointmentForm />
-          </div>
+          </Card>
           <div className="grid gap-4 sm:grid-cols-2">
             {locations
               .filter((item) => item.slug !== "virtual")
@@ -52,6 +54,11 @@ export default function ContactPage() {
           </div>
         </Container>
       </Section>
+      <CtaBanner
+        title="Prefer to book directly?"
+        description="Choose a clinic and time that works for you."
+        primary={{ href: "/book-appointment", label: "Book Appointment" }}
+      />
     </>
   );
 }

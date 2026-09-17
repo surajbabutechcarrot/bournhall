@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { cn } from "@/lib/cn";
 
 type InsightCardProps = {
@@ -20,12 +20,12 @@ export function InsightCard({ href, title, excerpt, image, className }: InsightC
         className,
       )}
     >
-      <Image
+      <SiteImage
         src={image.src}
         alt={image.alt}
-        fill
         sizes="(min-width: 1024px) 416px, 90vw"
-        className="z-0 object-cover object-[center_22%]"
+        className="absolute inset-0 z-0"
+        imageClassName="object-[center_22%]"
       />
       <span
         aria-hidden

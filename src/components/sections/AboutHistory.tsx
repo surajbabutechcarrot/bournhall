@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { Container } from "@/components/ui/Container";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { aboutHistory } from "@/content/about";
 import { cn } from "@/lib/cn";
 
@@ -57,12 +57,13 @@ export function AboutHistory() {
             className="w-full lg:sticky lg:top-[calc(var(--header-h)+0.75rem)] lg:self-start"
           >
             <div className="about-history-media relative h-[min(420px,56vh)] w-full overflow-hidden rounded-[24px] sm:h-[min(500px,60vh)] sm:rounded-[28px] lg:h-[min(540px,68vh)]">
-              <Image
+              <SiteImage
                 src={aboutHistory.image.src}
                 alt={aboutHistory.image.alt}
-                fill
                 sizes="(min-width: 1024px) 48vw, 100vw"
-                className="object-cover object-[32%_12%]"
+                noParallax
+                className="absolute inset-0 rounded-none"
+                imageClassName="object-[32%_12%]"
               />
               <div className="about-history-overlay absolute inset-x-4 bottom-4 rounded-2xl bg-brand-500 p-4 text-white sm:inset-x-5 sm:bottom-5 sm:p-5 lg:inset-x-6 lg:bottom-6 lg:max-w-[92%] lg:p-6">
                 <h3 className="text-lg font-semibold leading-snug sm:text-xl lg:text-[clamp(1.2rem,1.7vw,1.65rem)] lg:leading-snug">

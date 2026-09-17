@@ -11,6 +11,8 @@ type SiteImageProps = {
   fill?: boolean;
   width?: number;
   height?: number;
+  /** Skip GSAP scroll-media parallax (sticky frames, cropped portraits, etc.). */
+  noParallax?: boolean;
 };
 
 export function SiteImage({
@@ -23,6 +25,7 @@ export function SiteImage({
   fill = true,
   width,
   height,
+  noParallax = false,
 }: SiteImageProps) {
   return (
     <div className={cn("relative overflow-hidden", className)}>
@@ -34,7 +37,9 @@ export function SiteImage({
         height={height}
         sizes={sizes}
         priority={priority}
-        data-scroll-media
+        {...(noParallax
+          ? { "data-no-parallax": true }
+          : { "data-scroll-media": true })}
         className={cn("object-cover", imageClassName)}
       />
     </div>

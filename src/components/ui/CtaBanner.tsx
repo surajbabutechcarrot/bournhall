@@ -19,7 +19,7 @@ export function CtaBanner({
   className,
 }: CtaBannerProps) {
   return (
-    <section className={cn("pb-4", className)}>
+    <section className={cn("pb-16 sm:pb-20", className)}>
       <Container>
         <div className="overflow-hidden rounded-3xl bg-[linear-gradient(135deg,#7d1551_0%,#3a0926_100%)] px-6 py-12 text-center text-white sm:px-10 sm:py-14">
           <h2 className="text-[1.75rem] font-bold tracking-tight sm:text-[2rem]">{title}</h2>

@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
 import { CtaBanner } from "@/components/ui/CtaBanner";
+import { DetailFact, DetailSection } from "@/components/ui/DetailSection";
 import { PageHero } from "@/components/ui/PageHero";
-import { Section } from "@/components/ui/Section";
 import { getSpecialist, specialists } from "@/content/specialists";
 import { buildMetadata } from "@/lib/seo";
 
@@ -49,23 +48,14 @@ export default async function DoctorPage({ params }: Props) {
           </Button>
         }
       />
-      <Section>
-        <Container size="narrow" className="space-y-3 text-[15px] leading-7 text-ink-500">
-          <p>
-            <strong className="text-ink-800">Role:</strong> {doctor.role}
-          </p>
-          <p>
-            <strong className="text-ink-800">Specialty:</strong> {doctor.specialty}
-          </p>
-          <p>
-            <strong className="text-ink-800">Clinic:</strong> {doctor.clinic}
-          </p>
-        </Container>
-      </Section>
+      <DetailSection className="space-y-3">
+        <DetailFact label="Role" value={doctor.role} />
+        <DetailFact label="Specialty" value={doctor.specialty} />
+        <DetailFact label="Clinic" value={doctor.clinic} />
+      </DetailSection>
       <CtaBanner
         title="Ready to meet your specialist?"
         primary={{ href: "/book-appointment", label: "Book Appointment" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

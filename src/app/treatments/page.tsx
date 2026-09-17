@@ -48,7 +48,6 @@ export default function TreatmentsPage() {
         title="Not sure which treatment is right?"
         description="A specialist consultation is the clearest first step."
         primary={{ href: "/book-appointment", label: "Book Consultation" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

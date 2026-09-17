@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { InsightCard } from "@/components/cards/InsightCard";
 import { Container } from "@/components/ui/Container";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 import { PageHero } from "@/components/ui/PageHero";
@@ -29,19 +29,15 @@ export default function ResourcesPage() {
       />
       <Section>
         <Container>
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {resources.map((item) => (
-              <Link
+              <InsightCard
                 key={item.slug}
                 href={`/resources/${item.slug}`}
-                className="rounded-[1.75rem] bg-brand-50 p-6 transition-transform hover:-translate-y-1"
-              >
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-600">
-                  {item.category}
-                </p>
-                <h2 className="mt-3 text-lg font-semibold text-ink-800">{item.title}</h2>
-                <p className="mt-2 text-sm leading-6 text-ink-500">{item.excerpt}</p>
-              </Link>
+                title={item.title}
+                excerpt={item.excerpt}
+                image={item.image}
+              />
             ))}
           </div>
         </Container>
@@ -49,7 +45,6 @@ export default function ResourcesPage() {
       <CtaBanner
         title="Questions after reading?"
         primary={{ href: "/book-appointment", label: "Book Appointment" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

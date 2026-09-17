@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, Clock, Phone } from "lucide-react";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { cn } from "@/lib/cn";
 
 type LocationCardProps = {
@@ -37,13 +37,14 @@ export function LocationCard({
     >
       <div className="flex w-full flex-col gap-8">
         <div className="flex items-start gap-4">
-          <Image
+          <SiteImage
             src={image.src}
             alt={image.alt}
             width={89}
             height={89}
             sizes="89px"
-            className="size-[89px] shrink-0 rounded-xl object-cover"
+            noParallax
+            className="size-[89px] shrink-0 rounded-xl"
           />
           <div className="min-w-0 flex-1">
             <h3 className="text-[28px] leading-[42px] font-medium text-ink-950">{name}</h3>

@@ -46,7 +46,6 @@ export default function DoctorsPage() {
       <CtaBanner
         title="Request a specialist consultation"
         primary={{ href: "/book-appointment", label: "Book Appointment" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

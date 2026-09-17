@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { MapPin } from "lucide-react";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { cn } from "@/lib/cn";
 
 type DoctorCardProps = {
@@ -34,13 +34,13 @@ export function DoctorCard({
         background creates headroom at the top (matches Figma framing).
       */}
       <div className="pointer-events-none absolute inset-x-0 top-[7%] bottom-0 overflow-hidden">
-        <Image
+        <SiteImage
           src={image.src}
           alt={image.alt}
-          fill
           sizes="(min-width: 1024px) 416px, 80vw"
-          data-no-parallax
-          className="object-cover object-[center_18%]"
+          noParallax
+          className="absolute inset-0"
+          imageClassName="object-[center_18%]"
         />
       </div>
 

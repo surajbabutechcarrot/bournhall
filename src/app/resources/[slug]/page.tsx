@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
-import { Container } from "@/components/ui/Container";
 import { CtaBanner } from "@/components/ui/CtaBanner";
+import { DetailSection } from "@/components/ui/DetailSection";
 import { PageHero } from "@/components/ui/PageHero";
-import { Section } from "@/components/ui/Section";
 import { resources } from "@/content/site-content";
-import { images } from "@/lib/images";
 import { buildMetadata } from "@/lib/seo";
 
 type Props = {
@@ -42,25 +40,22 @@ export default async function ResourcePage({ params }: Props) {
           { label: "Resources", href: "/resources" },
           { label: article.title },
         ]}
-        image={images.lab}
+        image={article.image}
       />
-      <Section>
-        <Container size="narrow" className="space-y-4 text-[15px] leading-7 text-ink-500">
-          <p>{article.excerpt}</p>
-          <p>
-            Outcomes and next steps are always individual. A Bourn Hall specialist can review your
-            history, tests and goals, then explain which options are clinically suitable for you.
-          </p>
-          <p>
-            If you are preparing for a first visit, bring previous reports, a list of medications
-            and the questions that matter most to you. We will take the time to answer them.
-          </p>
-        </Container>
-      </Section>
+      <DetailSection>
+        <p>{article.excerpt}</p>
+        <p>
+          Outcomes and next steps are always individual. A Bourn Hall specialist can review your
+          history, tests and goals, then explain which options are clinically suitable for you.
+        </p>
+        <p>
+          If you are preparing for a first visit, bring previous reports, a list of medications
+          and the questions that matter most to you. We will take the time to answer them.
+        </p>
+      </DetailSection>
       <CtaBanner
         title="Talk this through with a specialist"
         primary={{ href: "/book-appointment", label: "Book Appointment" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

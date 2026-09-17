@@ -39,7 +39,6 @@ export default function FaqPage() {
         title="Still have a question?"
         primary={{ href: "/book-appointment", label: "Book Appointment" }}
         secondary={{ href: "/contact", label: "Contact us" }}
-        className="pb-16 sm:pb-20"
       />
     </>
   );

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { cn } from "@/lib/cn";
 
 const tones = {
@@ -41,12 +42,11 @@ export function TreatmentCard({
     >
       {image ? (
         <>
-          <Image
+          <SiteImage
             src={image.src}
             alt={image.alt}
-            fill
             sizes="(min-width: 1024px) 417px, 80vw"
-            className="z-0 object-cover"
+            className="absolute inset-0 z-0"
           />
           <span
             aria-hidden
